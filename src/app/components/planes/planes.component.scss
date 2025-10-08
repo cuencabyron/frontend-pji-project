@@ -1,0 +1,88 @@
+.planes {
+  background-color: #f7faff;
+  padding: 5rem 2rem;
+  text-align: center;
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 3rem;
+    color: #222;
+
+    span {
+        color: #ADFF2F;
+      }
+  }
+
+  .planes-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  .plan-card {
+    background: #ffffff;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    padding: 2rem;
+    flex: 1 1 300px;
+    max-width: 350px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      border-color: #007bff;
+    }
+
+    &.destacado {
+      border-color: #007bff;
+      background-color: #eef5ff;
+      transform: scale(1.05);
+    }
+
+    h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+      color: #007bff;
+    }
+
+    .precio {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #222;
+      margin-bottom: 1rem;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 2rem 0;
+      color: #444;
+      text-align: left;
+
+      li {
+        margin: 0.4rem 0;
+      }
+    }
+
+    .btn-contratar {
+      background-color: #007bff;
+      color: #fff;
+      text-decoration: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: background 0.3s;
+
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
+  }
+}

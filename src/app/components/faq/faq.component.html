@@ -1,0 +1,24 @@
+<section class="faq" id="faq">
+  <div class="container">
+    <h1 align="center">
+        Preguntas <span>Frecuentes</span>
+    </h1>
+
+    <div class="faq-list">
+      <div
+        class="faq-item"
+        *ngFor="let faq of faqs; let i = index"
+        (click)="toggleFaq(i)"
+        [class.abierta]="faq.abierta"
+      >
+        <div class="faq-pregunta">
+          {{ faq.pregunta }}
+          <span class="icon">{{ faq.abierta ? '−' : '+' }}</span>
+        </div>
+        <div class="faq-respuesta" *ngIf="faq.abierta">
+          {{ faq.respuesta }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

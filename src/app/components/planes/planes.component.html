@@ -1,0 +1,21 @@
+<section class="planes" id="planes">
+  <div class="container">
+    <h1>
+        Nuestras <span>Pólizas</span>
+    </h1>
+    <div class="planes-grid">
+      <div
+        class="plan-card"
+        *ngFor="let plan of planes"
+        [class.destacado]="plan.destacado"
+      >
+        <h3>{{ plan.nombre }}</h3>
+        <p class="precio">{{ plan.precio }}</p>
+        <ul>
+          <li *ngFor="let beneficio of plan.beneficios">✔ {{ beneficio }}</li>
+        </ul>
+        <a routerLink="/contratar" class="btn-contratar">Contratar</a>
+      </div>
+    </div>
+  </div>
+</section>
