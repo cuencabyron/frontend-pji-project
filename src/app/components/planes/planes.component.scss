@@ -1,88 +1,154 @@
-.planes {
-  background-color: #f7faff;
-  padding: 5rem 2rem;
+:host { 
+  display: block; 
+}
+
+$green: #9bd345;  // verde claro (botón)
+$green-dark: #0f4b2d; // verde oscuro (botón plan popular)
+$blue: #1862d9;  // precio
+$shadow: 0 8px 24px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.04);
+
+.container { 
+  max-width: 1100px; 
+  margin: 0 auto; 
+  padding: 0 16px;
+  font-family: Arial; 
+}
+
+.planes { padding: clamp(28px, 6vw, 56px) 0; background: #f7fbff; }
+
+.title {
+  margin: 0;
   text-align: center;
+  font-weight: 900;
+  letter-spacing: .4px;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  color: #1a1f26;
+}
+.accent { 
+  color: #89c53a; 
+}
 
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
+.subtitle {
+  text-align: center;
+  color: #6c7a87;
+  margin: 6px auto 24px;
+}
+
+.grid {
+  display: grid;
+  gap: clamp(16px, 3vw, 28px);
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+@media (min-width: 860px) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.card {
+  border-radius: 16px;
+  background: transparent;
+}
+.card__inner {
+  position: relative;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: $shadow;
+  padding: clamp(18px, 3.4vw, 28px);
+  min-height: 560px; /* para equilibrar alturas como la imagen */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Badge de “Más Popular” */
+.badge {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffc21a;
+  color: #222;
+  font-weight: 800;
+  padding: 6px 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 0 rgba(0,0,0,.07);
+  font-family: Arial;
+}
+.popular .card__title { margin-top: 28px; } /* separa titulo del badge */
+
+.card__title {
+  margin: 0 0 8px 0;
+  font-weight: 900;
+  font-size: clamp(1.3rem, 2.2vw, 2rem);
+  color: #1a1f26;
+}
+
+.card__desc {
+  margin: 0 0 6px 0;
+  color: #4b5563;
+}
+
+.price {
+  margin: 6px 0 8px;
+  .amount {
+    color: $blue;
+    font-weight: 800;
+    font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+    font-family: Arial;
   }
 
-  h1 {
-    font-size: 2rem;
-    margin-bottom: 3rem;
-    color: #222;
-
-    span {
-        color: #ADFF2F;
-      }
-  }
-
-  .planes-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2rem;
-  }
-
-  .plan-card {
-    background: #ffffff;
-    border: 2px solid #e0e0e0;
-    border-radius: 12px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-    padding: 2rem;
-    flex: 1 1 300px;
-    max-width: 350px;
-    transition: all 0.3s ease;
-
-    &:hover {
-      transform: translateY(-5px);
-      border-color: #007bff;
-    }
-
-    &.destacado {
-      border-color: #007bff;
-      background-color: #eef5ff;
-      transform: scale(1.05);
-    }
-
-    h3 {
-      font-size: 1.4rem;
-      margin-bottom: 0.5rem;
-      color: #007bff;
-    }
-
-    .precio {
-      font-size: 1.3rem;
-      font-weight: bold;
-      color: #222;
-      margin-bottom: 1rem;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 2rem 0;
-      color: #444;
-      text-align: left;
-
-      li {
-        margin: 0.4rem 0;
-      }
-    }
-
-    .btn-contratar {
-      background-color: #007bff;
-      color: #fff;
-      text-decoration: none;
-      padding: 0.6rem 1.2rem;
-      border-radius: 8px;
-      font-weight: 600;
-      transition: background 0.3s;
-
-      &:hover {
-        background-color: #0056b3;
-      }
-    }
+  .per {
+    color: #7a8794;
+    font-size: .95rem;
   }
 }
+
+.section-title {
+  margin-top: 8px;
+  font-weight: 800;
+  color: #1e2a32;
+}
+.section-title.alt { color: #2e7d32; }
+
+.list {
+  padding-left: 1.2rem;
+  margin: 6px 0 0;
+  color: #2a3139;
+  li { margin: 6px 0; }
+  .more { color: #6b7280; list-style: none; margin-left: -1.2rem; }
+}
+
+.extras {
+  list-style: none;
+  padding-left: 0;
+  margin: 6px 0 0;
+  li { 
+    margin: 6px 0; 
+    color: #1a1f26 
+  }
+}
+
+/* Botón */
+.btn {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 52px;
+  border-radius: 999px;
+  border: 0;
+  background: $green;
+  color: #fff;
+  font-weight: 800;
+  box-shadow: 0 6px 0 rgba(0,0,0,.05), 0 1px 8px rgba(0,0,0,.08);
+  cursor: pointer;
+  transition: transform .05s ease, filter .15s ease;
+}
+.btn:hover { filter: brightness(0.97); }
+.btn:active { transform: translateY(1px); }
+.btn--dark {
+  background: #0f6b3a;
+  color: #e8f6ed;
+}
+.arrow { font-size: 1.1em; line-height: 1; }

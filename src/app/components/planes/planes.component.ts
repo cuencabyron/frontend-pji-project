@@ -1,44 +1,70 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { CommonModule, DecimalPipe, NgForOf, NgIf } from '@angular/common';
+
+interface Plan {
+  nombre: string;
+  descripcion: string;
+  precio: number;        // MXN por mes
+  incluye: string[];
+  extrasMas?: number;    // para el texto “+n características más”
+  complementos?: string[]; // aparece al final en la tarjeta (ej. plan 1)
+  popular?: boolean;
+  btnColor?: 'green' | 'dark';
+}
 
 @Component({
   selector: 'app-planes',
   standalone: true,
-  imports: [RouterLink],
+  imports: [CommonModule, NgForOf, NgIf, DecimalPipe],
   templateUrl: './planes.component.html',
-  styleUrls: ['./planes.component.scss']
+  styleUrls: ['./planes.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
+
 export class PlanesComponent {
-  planes = [
+  planes: Plan[] = [
     {
-      nombre: 'Plan Básico',
-      precio: 'MXN $499',
-      beneficios: [
-        'Asesoría legal básica',
-        'Verificación de inquilino',
-        'Firma de contrato digital'
+      nombre: 'Póliza Jurídica Digital',
+      descripcion: 'Protección esencial para tu arrendamiento con cobertura legal básica.',
+      precio: 299.00,
+      incluye: [
+        'Falta de pago de renta',
+        'Abandono de propiedad',
+        'Devolución voluntaria'
       ],
-      destacado: false
+      extrasMas: 2,
+      complementos: [
+        'Recuperación de Inmueble',
+        'Asesoría Legal Avanzada',
+        'Cobertura de Daños'
+      ],
+      btnColor: 'green'
     },
     {
-      nombre: 'Plan Estándar',
-      precio: 'MXN $799',
-      beneficios: [
-        'Cobertura jurídica completa',
-        'Seguimiento de pagos',
-        'Representación en juicio'
+      nombre: 'Investigación Digital',
+      descripcion: 'Cobertura ampliada con investigación y negociación de contrato.',
+      precio: 499.00,
+      incluye: [
+        'Intervención si el inquilino se niega a salir',
+        'Negociación de nuevo contrato',
+        'Investigación de antecedentes'
       ],
-      destacado: true
+      extrasMas: 3,
+      popular: true,
+      btnColor: 'dark'
     },
     {
-      nombre: 'Plan Premium',
-      precio: 'MXN $1,199',
-      beneficios: [
-        'Cobertura total',
-        'Defensa completa en caso de conflicto',
-        'Atención prioritaria 24/7'
+      nombre: 'Protección Total',
+      descripcion: 'Máxima protección legal y financiera con cobertura integral.',
+      precio: 799.00,
+      incluye: [
+        'Recuperación judicial de rentas y servicios',
+        'Cobertura de daños a la propiedad',
+        'Protección contra impago prolongado'
       ],
-      destacado: false
+      extrasMas: 4,
+      btnColor: 'green'
     }
   ];
 }

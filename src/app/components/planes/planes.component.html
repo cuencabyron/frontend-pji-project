@@ -1,21 +1,52 @@
 <section class="planes" id="planes">
   <div class="container">
-    <h1>
-        Nuestras <span>Pólizas</span>
-    </h1>
-    <div class="planes-grid">
-      <div
-        class="plan-card"
-        *ngFor="let plan of planes"
-        [class.destacado]="plan.destacado"
-      >
-        <h3>{{ plan.nombre }}</h3>
-        <p class="precio">{{ plan.precio }}</p>
-        <ul>
-          <li *ngFor="let beneficio of plan.beneficios">✔ {{ beneficio }}</li>
-        </ul>
-        <a routerLink="/contratar" class="btn-contratar">Contratar</a>
-      </div>
+    <header class="planes__head">
+      <h2 id="planes-title" class="title">
+        Nuestras <span class="accent">pólizas</span>
+      </h2>
+      <p class="subtitle">Planes claros, sin sorpresas.</p>
+    </header>
+
+    <div class="grid">
+      <article class="card" *ngFor="let p of planes; let i = index">
+        <div class="card__inner" [class.popular]="p.popular">
+          <!-- Badge -->
+          <div class="badge" *ngIf="p.popular">Más Popular</div>
+
+          <!-- Título -->
+          <h3 class="card__title">{{ p.nombre }}</h3>
+
+          <!-- Descripción -->
+          <p class="card__desc">{{ p.descripcion }}</p>
+
+          <!-- Precio -->
+          <div class="price">
+            <div class="amount">MXN {{ p.precio | number:'1.2-2' }}</div>
+            <div class="per">por mes</div>
+          </div>
+
+          <!-- Incluye -->
+          <div class="section-title">Incluye:</div>
+          <ul class="list">
+            <li *ngFor="let item of p.incluye">{{ item }}</li>
+            <li *ngIf="p.extrasMas" class="more">+{{ p.extrasMas }} características más</li>
+          </ul>
+
+          <!-- Complementos (solo si existen) -->
+          <ng-container *ngIf="p.complementos?.length">
+            <div class="section-title alt">Complementos disponibles:</div>
+            <ul class="extras">
+              <li *ngFor="let c of p.complementos">{{ c }}</li>
+            </ul>
+          </ng-container>
+
+          <!-- CTA -->
+          <button class="btn" [class.btn--dark]="p.btnColor==='dark'" type="button" aria-label="Seleccionar {{ p.nombre }}">
+            Seleccionar plan
+            <span class="arrow" aria-hidden="true">→</span>
+          </button>
+        </div>
+      </article>
     </div>
   </div>
 </section>

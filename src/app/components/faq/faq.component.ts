@@ -19,17 +19,17 @@ export class FaqComponent {
     {
       pregunta: '¿Qué pasa si mi inquilino no paga la renta?',
       respuesta: 'Iniciamos de inmediato el proceso legal para recuperar rentas y, si es necesario, desocupar el inmueble. Nuestro equipo de abogados se encarga de todo.',
-      abierta: false
+      abierta: true
     },
     {
       pregunta: '¿La firma electrónica es legal?',
       respuesta: 'Sí, la firma electrónica tiene validez legal y es utilizada en todos nuestros procesos.',
-      abierta: false
+      abierta: true
     },
     {
       pregunta: '¿Cuánto tarda la contratación?',
       respuesta: 'El proceso es inmediato y 100% digital. En minutos puedes tner tu poliza.',
-      abierta: false
+      abierta: true
     }
   ];
 
