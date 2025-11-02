@@ -1,33 +1,115 @@
-.header {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 60px;
-  background-color: #ffffff;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  position: sticky;
-  top: 0;
+:host {
+  position: fixed;
+  top: 0; left: 0; right: 0;
   z-index: 1000;
+  display: block;
+}
 
-  .logo img {
-    height: 175px;
-  }
+.header {
+  background: transparent;     /* dejamos el fondo del header transparente */
+  padding: .5rem 0;            /* margen externo para cuando aparezca la píldora */
+  transition: padding .25s ease;
+}
 
-  .nav-links {
-    display: flex;
-    gap: 25px;
-    font-family: Arial, Helvetica, sans-serif;
+/* Contenedor que se convertirá en el rectángulo/píldora */
+.header-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 24px;
 
-    a {
-      text-decoration: none;
-      color: #333;
-      font-weight: 500;
-      transition: color 0.3s;
+  /* Estado inicial: sin “píldora” (transparente) */
+  background: transparent;
+  border-radius: 999px;
+  padding: .75rem 1.25rem;
+  transition:
+    background .25s ease,
+    box-shadow .25s ease,
+    padding .25s ease,
+    border-color .25s ease;
+}
 
-      &:hover {
-        color: #92B428;
-      }
-    }
+.logo { display: flex; align-items: center; }
+
+.logo img {
+  height: 93px;
+  width: auto;
+  transition: height .25s ease, filter .25s ease;
+  cursor: pointer;
+}
+
+.nav-links {
+  margin-left: auto;
+  display: flex;
+  gap: 26px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Enlaces con animación suave */
+.nav-links a {
+  position: relative;
+  text-decoration: none;
+  color: #fff;                 /* blanco encima del hero */
+  letter-spacing: .2px;
+
+  /* Transiciones más suaves */
+  transition:
+    color .35s ease,
+    opacity .35s ease,
+    transform .35s cubic-bezier(.22,.61,.36,1),
+    letter-spacing .35s ease;
+}
+
+/* Subrayado animado que aparece con suavidad */
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 2px;
+  background: #A8CF41;        /* tu verde */
+  transform: scaleX(0);
+  transform-origin: 50% 50%;
+  transition: transform .45s cubic-bezier(.22,.61,.36,1);
+  opacity: .95;
+}
+
+.nav-links a:hover {
+  color: #DFF3A0;              /* tono claro del verde en hover */
+  letter-spacing: .25px;
+}
+.nav-links a:hover::after {
+  transform: scaleX(1);
+}
+
+/* Feedback rápido al click */
+.nav-links a:active {
+  transform: translateY(1px);
+  transition-duration: .15s;
+}
+
+/* Accesibilidad al tabular */
+.nav-links a:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(168,207,65,.35);
+  border-radius: 6px;
+}
+
+/* Cuando el header está en modo compacto, ajustamos colores */
+.header.compact .nav-links a {
+  color: #1E2A32;
+}
+.header.compact .nav-links a:hover { color: #7aa50a; }
+.header.compact .nav-links a::after {
+  background: #7aa50a;        /* verde más oscuro para buen contraste sobre fondo claro */
+}
+
+/* Respeta usuarios con reducción de movimiento */
+@media (prefers-reduced-motion: reduce) {
+  .nav-links a,
+  .nav-links a::after {
+    transition: none !important;
   }
 }

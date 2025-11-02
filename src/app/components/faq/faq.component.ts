@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 interface Faq {
   pregunta: string;
   respuesta: string;
-  abierta: boolean;
 }
 
 @Component({
@@ -12,31 +11,33 @@ interface Faq {
   standalone: true,
   imports: [CommonModule],
   templateUrl: './faq.component.html',
-  styleUrls: ['./faq.component.scss']
+  styleUrls: ['./faq.component.scss'],
 })
 export class FaqComponent {
-  faqs = [
+  // -1 = todas cerradas; 0 = abre la primera
+  activeIndex = 0;
+
+  // ATENCIÓN: NO uses la propiedad "abierta" en cada item.
+  faqs: Faq[] = [
     {
       pregunta: '¿Qué pasa si mi inquilino no paga la renta?',
-      respuesta: 'Iniciamos de inmediato el proceso legal para recuperar rentas y, si es necesario, desocupar el inmueble. Nuestro equipo de abogados se encarga de todo.',
-      abierta: true
+      respuesta:
+        'Iniciamos de inmediato el proceso legal para recuperar rentas y, si es necesario, desocupar el inmueble. Nuestro equipo de abogados se encarga de todo.',
     },
     {
       pregunta: '¿La firma electrónica es legal?',
-      respuesta: 'Sí, la firma electrónica tiene validez legal y es utilizada en todos nuestros procesos.',
-      abierta: true
+      respuesta:
+        'Sí, la firma electrónica tiene validez legal y es utilizada en todos nuestros procesos.',
     },
     {
       pregunta: '¿Cuánto tarda la contratación?',
-      respuesta: 'El proceso es inmediato y 100% digital. En minutos puedes tner tu poliza.',
-      abierta: true
-    }
+      respuesta:
+        'El proceso es inmediato y 100% digital. En minutos puedes tener tu póliza.',
+    },
   ];
 
-  toggleFaq(index: number) {
-    // Cierra todas, y abre/cierra la pulsada (comportamiento exclusivo)
-    const wasOpen = this.faqs[index].abierta;
-    this.faqs.forEach(f => (f.abierta = false));
-    this.faqs[index].abierta = !wasOpen;
+  toggle(i: number) {
+    // Abre la seleccionada y cierra las demás (acordeón)
+    this.activeIndex = this.activeIndex === i ? -1 : i;
   }
 }
