@@ -1,0 +1,29 @@
+<!-- Encabezado principal del sitio. La clase "compact" se agrega dinámicamente
+     cuando la propiedad 'scrolled' del componente es true (usando data binding de Angular). -->
+<header class="header" [class.compact]="scrolled">
+  <!-- Contenedor interno que se convierte en "píldora" al hacer scroll (estilos en .header-inner) -->
+  <div class="header-inner">
+    <!-- Zona de logo -->
+    <div class="logo">
+      <!-- Enlace que lleva al inicio de la página (ancla #top).
+           aria-label mejora accesibilidad para lectores de pantalla. -->
+      <a href="#top" aria-label="Ir al inicio">
+        <!-- Imagen del logotipo con texto alternativo descriptivo -->
+        <img src="assets/img/logo-pji.png" alt="Logo PJI">
+      </a>
+    </div>
+
+    <!-- Navegación principal -->
+    <nav class="nav-links">
+      <!-- Enlaces internos que apuntan a secciones por ID en la misma página -->
+      <a href="#proceso">¿CÓMO FUNCIONA?</a>
+      <a href="#planes">PÓLIZAS</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Espaciador visual para compensar el header fijo (position: fixed),
+     evitando que el contenido quede oculto debajo del header. Su altura
+     debe coincidir con la del header en tu CSS. -->
+<div class="header-spacer"></div>

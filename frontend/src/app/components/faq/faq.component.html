@@ -1,0 +1,26 @@
+<section class="faq" id ="faq">
+  <h2 class="faq__title">
+    Preguntas <span>frecuentes</span>
+  </h2>
+
+  <div class="faq__list">
+    <div
+      class="faq__item"
+      *ngFor="let faq of faqs; let i = index"
+      [class.faq__item--open]="openIndex === i">
+      <button type="button" class="faq__question" (click)="toggle(i)">
+        <span>
+          {{ faq.pregunta }}
+        </span>
+        
+        <i class="faq__icon bi"
+          [ngClass]="openIndex === i ? 'bi-chevron-compact-down' : 'bi-plus'">
+        </i>
+      </button>
+
+      <div class="faq__answer" *ngIf="openIndex === i">
+        {{ faq.respuesta }}
+      </div>
+    </div>
+  </div>
+</section>
