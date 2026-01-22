@@ -7,5 +7,7 @@ export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'contratar', component: ContratarComponent },
   { path: '', component: PlanesComponent },
-  { path: '**', redirectTo: '' } // redirige cualquier ruta desconocida al Home
+  { path: '**', redirectTo: '' }, // redirige cualquier ruta desconocida al Home
+  { path: 'planes', component: PlanesComponent },
+  { path: '', redirectTo: 'planes', pathMatch: 'full' },
 ];
