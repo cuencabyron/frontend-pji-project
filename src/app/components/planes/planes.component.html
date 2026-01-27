@@ -12,8 +12,13 @@
       <p class="subtitle">Planes claros, sin sorpresas.</p>
     </header>
 
+    <!-- Mnesaje de carga -->
+    <p *ngIf="loading" class="planes__loading">Cargando planes...</p>
+
+    <p *ngIf="error" class="planes__error">{{ error }}</p>
+
     <!-- Grid que contiene todas las tarjetas de planes -->
-    <div class="grid">
+    <div class="grid" *ngIf="!loading && !error">
       <!-- Tarjeta de plan, repetida por cada elemento de 'planes' en el componente -->
       <article class="card" *ngFor="let p of planes; let i = index">
         <!-- Contenedor interno de la tarjeta; si p.popular es true, agrega la clase 'popular' -->
@@ -59,11 +64,15 @@
           <!-- Botón de llamada a la acción (CTA) para seleccionar el plan -->
           <button
             class="btn"
-            [class.btn--dark]="p.btnColor==='dark'" type="button" aria-label="Seleccionar {{ p.nombre }}"> <!-- aplica estilo oscuro si p.btnColor es 'dark' -- / -- mejora accesibilidad describiendo la acción -->
+            [class.btn--dark]="p.btnColor==='dark'" 
+            type="button" 
+            (click)="seleccionarPlan(p)"
+            [attr.aria-label]="'Seleccionar ' + p.nombre">
             Seleccionar plan
             <!-- Flecha decorativa; aria-hidden indica que no se lee en lectores de pantalla -->
             <span class="arrow" aria-hidden="true">→</span>
           </button>
+
         </div>
       </article>
     </div>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { CreateProductDto } from '../models/create-product.dto';
+import { Observable } from 'rxjs'
 import { environment } from '../../environments/environment';
 import { Product } from '../models/product.model';
 
@@ -14,12 +14,17 @@ export class ProductService
   constructor(private http: HttpClient) {}
 
   // GET /products
-  getAll() {
+  getAll(): Observable<Product[]> {
     return this.http.get<Product[]>(this.baseUrl);
   }
 
+  // GET /api/products/:id
+  getById(id: string): Observable<Product> {
+    return this.http.get<Product>(`${this.baseUrl}/${id}`)
+  }
+
   // POST /products
-  create(dto: CreateProductDto) {
+  create(dto: Partial<Product>): Observable<Product> {
     return this.http.post<Product>(this.baseUrl, dto);
   }
 }
