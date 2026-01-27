@@ -4,10 +4,16 @@ import { ContratarComponent } from './pages/contratar/contratar.component';
 import { PlanesComponent } from './components/planes/planes.component';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'contratar', component: ContratarComponent },
-  { path: '', component: PlanesComponent },
-  { path: '**', redirectTo: '' }, // redirige cualquier ruta desconocida al Home
+
+  // Ruta raíz: muestra Home
+  { path: '', component: HomeComponent, pathMatch: 'full' },
+
+  // Ruta para planes
   { path: 'planes', component: PlanesComponent },
-  { path: '', redirectTo: 'planes', pathMatch: 'full' },
+
+  // Ruta para contratar
+  { path: 'contratar', component: ContratarComponent },
+
+  // Wildcard siempre al final
+  { path: '**', redirectTo: '' }, 
 ];
