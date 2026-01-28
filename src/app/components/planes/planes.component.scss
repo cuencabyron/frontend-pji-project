@@ -132,6 +132,12 @@ $shadow: 0 8px 24px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.04); // sombra base t
     color: #7a8794;
     font-size: .95rem;
   }
+
+  .price-from {
+    color: #7a8794;
+    font-size: .95rem;
+    display: flex;
+  }
 }
 
 /* Título de secciones internas de la card (Incluye, Complementos, etc.) */

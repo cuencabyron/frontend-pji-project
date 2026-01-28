@@ -1,10 +1,11 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, DecimalPipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product.model';
 
-interface Plan {
+interface Plan 
+{
   id: string;
   nombre: string;
   descripcion: string;
@@ -16,6 +17,35 @@ interface Plan {
   btnColor?: 'green' | 'dark';
 }
 
+const PLAN_UI: Record<string, { incluye: string[]; extrasMas?: number }> = {
+  Esencial: {
+    incluye: [
+      'Intervención extrajudicial al primer atraso',
+      'Intervención judicial al segundo mes de atraso',
+      'Recuperación de inmueble por abandono',
+      'Recuperación de inmueble por entrega voluntaria',
+    ],
+    extrasMas: 3,
+  },
+  Premium: {
+    incluye: [
+      'Todos los beneficios de Esencial',
+      'Intervención al término del contrato',
+      'Recuperación por negativa a entregar inmueble',
+      'Recuperación por negativa a salir del inmueble',
+    ],
+    extrasMas: 3,
+  },
+  Diamante: {
+    incluye: [
+      'Todos los beneficios de Esencial y Premium',
+      'Recuperación contenciosa en juicio',
+      'Cobro de rentas vencidas',
+      'Cobro de servicios pendientes',
+    ],
+    extrasMas: 4,
+  },
+};
 @Component({
   selector: 'app-planes',
   standalone: true,
@@ -32,6 +62,7 @@ export class PlanesComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private router: Router,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -42,37 +73,39 @@ export class PlanesComponent implements OnInit {
   {
     this.loading = true;
     this.error = null;
+    this.cdr.markForCheck();
 
     this.productService.getAll().subscribe({
       next: (products: Product[]) => {
         this.planes = products.map((p: Product, index: number) => this.mapProductToPlan(p, index));
         this.loading = false;
+        this.cdr.markForCheck();
       },
       error: (err: unknown) => {
         console.error('Error cargando products', err);
         this.error = 'No se pudieron cargar los planes.';
         this.loading = false;
+        this.cdr.markForCheck();
       },
     });
   }
 
   private mapProductToPlan(product: Product, index: number): Plan {
-    return {
-      id: product.product_id,
-      nombre: product.name,
-      descripcion: product.description,
-      precio: Number(product.min_monthly_rent ?? product.max_monthly_rent ?? 0),
-      incluye: [
-        'Cobertura base del plan',
-        'Asesoría legal',
-        'Soporte especializado',
-      ],
-      extrasMas: 2,
-      complementos: ['Complemento 1', 'Complemento 2'],
-      popular: index === 1,
-      btnColor: index === 1 ? 'dark' : 'green',
-    };
-  }
+  const ui = PLAN_UI[product.name] ?? {
+    extrasMas: undefined,
+  };
+
+  return {
+    id: product.product_id,
+    nombre: product.name,
+    descripcion: product.description,
+    precio: Number(product.min_monthly_rent ?? product.max_monthly_rent ?? 0),
+    incluye: ui.incluye,
+    extrasMas: ui.extrasMas,
+    popular: index === 1,
+    btnColor: index === 1 ? 'dark' : 'green',
+  };
+}
 
   seleccionarPlan(plan: Plan): void {
     // Aquí decides qué hacer con el plan seleccionado:

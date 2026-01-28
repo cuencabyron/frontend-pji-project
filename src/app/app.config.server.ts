@@ -1,11 +1,17 @@
-import { mergeApplicationConfig, ApplicationConfig } from '@angular/core';
+import { mergeApplicationConfig, ApplicationConfig, LOCALE_ID } from '@angular/core';
 import { provideServerRendering, withRoutes } from '@angular/ssr';
 import { appConfig } from './app.config';
 import { serverRoutes } from './app.routes.server';
 
+import { registerLocaleData } from '@angular/common';
+import localeEsMx from '@angular/common/locales/es-Mx';
+
+registerLocaleData(localeEsMx);
+
 const serverConfig: ApplicationConfig = {
   providers: [
-    provideServerRendering(withRoutes(serverRoutes))
+    provideServerRendering(withRoutes(serverRoutes)),
+    { provide: LOCALE_ID, useValue: 'es-MX'},
   ]
 };
 

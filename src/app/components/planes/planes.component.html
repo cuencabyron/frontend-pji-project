@@ -34,10 +34,12 @@
 
           <!-- Bloque de precio -->
           <div class="price">
-            <!-- Monto, formateado como número con 2 decimales (MXN 299.00, etc.) -->
-            <div class="amount">MXN {{ p.precio | number:'1.2-2' }}</div>
+            <!-- Texto apartir de que cantidad -->
+            <div class="price-from"> desde </div>
+            <!-- Monto, formateado como número con 3 decimales (MXN 299.000, etc.) -->
+            <div class="amount"> MXN {{ p.precio | number:'1.0-0' }}</div>
             <!-- Texto de periodo (por mes, anual, etc.) -->
-            <div class="per">por mes</div>
+            <div class="per">por año</div>
           </div>
 
           <!-- Título de la sección “Incluye” dentro de la tarjeta -->
