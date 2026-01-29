@@ -1,0 +1,37 @@
+<div class="flow">
+  <div class="card">
+    <h2>Pago</h2>
+    <p class="muted">Completa el pago para continuar.</p>
+
+    <div class="summary">
+      <div>
+        <div class="label">Plan</div>
+        <div class="value">{{ productId || 'No seleccionado' }}</div>
+      </div>
+
+      <div>
+        <div class="label">Estado</div>
+        <div class="value">{{ state || 'No seleccionado' }}</div>
+      </div>
+    </div>
+
+    <div class="paybox">
+      <div class="secure">
+        <b>Pago seguro</b>
+        <span> (demo)</span>
+      </div>
+
+      <div class="fakeinput">Número de tarjeta</div>
+      <div class="note">Aceptamos Visa, Mastercard, American Express y más.</div>
+    </div>
+
+    <button class="btn pay" (click)="pay()" [disabled]="!productId || !state">
+      Pagar
+    </button>
+
+    <div class="actions">
+      <button class="btn ghost" (click)="back()">Anterior</button>
+      <button class="btn primary" disabled>Siguiente</button>
+    </div>
+  </div>
+</div>

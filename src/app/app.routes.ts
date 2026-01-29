@@ -4,16 +4,38 @@ import { ContratarComponent } from './pages/contratar/contratar.component';
 import { PlanesComponent } from './components/planes/planes.component';
 
 export const routes: Routes = [
-
-  // Ruta raíz: muestra Home
   { path: '', component: HomeComponent, pathMatch: 'full' },
 
-  // Ruta para planes
   { path: 'planes', component: PlanesComponent },
 
-  // Ruta para contratar
-  { path: 'contratar', component: ContratarComponent },
+  // Wizard dentro de /contratar/...
+  {
+    path: 'contratar',
+    component: ContratarComponent,
+    children: [
+      {
+        path: 'registro-basico',
+        loadComponent: () =>
+          import('./pages/contratar/registro-basico/registro-basico.component')
+            .then(m => m.RegistroBasicoComponent),
+      },
+      {
+        path: 'estado-plan',
+        loadComponent: () =>
+          import('./pages/contratar/estado-plan/estado-plan.component')
+            .then(m => m.EstadoPlanComponent),
+      },
+      {
+        path: 'pago',
+        loadComponent: () =>
+          import('./pages/contratar/pago/pago.component')
+            .then(m => m.PagoComponent),
+      },
 
-  // Wildcard siempre al final
-  { path: '**', redirectTo: '' }, 
+      // si entran a /contratar sin nada
+      { path: '', redirectTo: 'registro-basico', pathMatch: 'full' },
+    ],
+  },
+
+  { path: '**', redirectTo: '' },
 ];

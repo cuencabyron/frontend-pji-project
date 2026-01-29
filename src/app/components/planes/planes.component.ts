@@ -107,10 +107,11 @@ export class PlanesComponent implements OnInit {
   };
 }
 
-  seleccionarPlan(plan: Plan): void {
+  seleccionarPlan(plan: Plan): void 
+  {
     // Aquí decides qué hacer con el plan seleccionado:
     // navegar al siguiente paso, guardar en un servicio, etc.
-    this.router.navigate(['/registro-basico'], {
+    this.router.navigate(['/contratar/registro-basico'], {
       queryParams: { productId: plan.id },
     });
 

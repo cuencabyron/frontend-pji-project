@@ -1,0 +1,52 @@
+<form class="flow-card" [formGroup]="form" (ngSubmit)="siguiente()">
+  <h2 class="title">Registro básico</h2>
+  <p class="subtitle">
+    Completa tus datos para crear tu cuenta. Tendrás acceso a la plataforma para ver el estado de tus solicitudes.
+  </p>
+
+  <div class="grid">
+    <div class="field">
+      <label>Nombre completo <span>*</span></label>
+      <input type="text" placeholder="Nombre completo" formControlName="nombre" />
+      <small class="error" *ngIf="nombreCtrl?.touched && nombreCtrl?.invalid">
+        Ingresa un nombre válido (mín. 3 caracteres).
+      </small>
+    </div>
+
+    <div class="field">
+      <label>Teléfono <span>*</span></label>
+      <input type="text" placeholder="Teléfono" formControlName="telefono" />
+      <small class="error" *ngIf="telefonoCtrl?.touched && telefonoCtrl?.invalid">
+        Ingresa un teléfono válido.
+      </small>
+    </div>
+
+    <div class="field">
+      <label>Correo electrónico <span>*</span></label>
+      <input type="email" placeholder="Correo electrónico" formControlName="email" />
+      <small class="error" *ngIf="emailCtrl?.touched && emailCtrl?.invalid">
+        Ingresa un correo válido.
+      </small>
+    </div>
+
+    <div class="field">
+      <label>Contraseña <span>*</span></label>
+      <input type="password" placeholder="Contraseña" formControlName="password" />
+      <small class="error" *ngIf="passwordCtrl?.touched && passwordCtrl?.invalid">
+        Mínimo 6 caracteres.
+      </small>
+    </div>
+  </div>
+
+  <div class="warn" *ngIf="!productId">
+    No llegó <b>productId</b>. Vuelve a <b>Planes</b> y selecciona un plan.
+  </div>
+
+  <div class="actions">
+    <button type="button" class="btn ghost" (click)="cancelar()">Cancelar</button>
+
+    <button type="submit" class="btn primary" [disabled]="!productId || form.invalid">
+      Siguiente
+    </button>
+  </div>
+</form>

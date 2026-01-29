@@ -1,0 +1,28 @@
+<div class="flow">
+  <div class="card">
+    <h2>Estado y Plan</h2>
+    <p class="muted">Selecciona tu estado para continuar.</p>
+
+    <div class="grid">
+      <button class="option" (click)="selectState('Nuevo México')" [class.active]="selectedState==='Nuevo México'">
+        Nuevo México
+      </button>
+
+      <button class="option" (click)="selectState('Texas')" [class.active]="selectedState==='Texas'">
+        Texas
+      </button>
+    </div>
+
+    <div class="hint" *ngIf="!productId">
+      No llegó <b>productId</b> (vuelve a Planes y selecciona un plan).
+    </div>
+
+    <div class="actions">
+      <button class="btn ghost" (click)="back()">Anterior</button>
+
+      <button class="btn primary" (click)="next()" [disabled]="!productId || !selectedState">
+        Siguiente
+      </button>
+    </div>
+  </div>
+</div>
