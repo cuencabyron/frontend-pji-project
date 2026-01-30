@@ -26,9 +26,9 @@ export class RegistroBasicoComponent implements OnInit {
 
     this.form = this.fb.group({
       nombre: ['', [Validators.required, Validators.minLength(3)]],
-      telefono: ['', [Validators.required, Validators.minLength(8)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      telefono: ['', [Validators.required, Validators.minLength(13)]],
+      direccion: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 
@@ -48,5 +48,5 @@ export class RegistroBasicoComponent implements OnInit {
   get nombreCtrl() { return this.form.get('nombre'); }
   get telefonoCtrl() { return this.form.get('telefono'); }
   get emailCtrl() { return this.form.get('email'); }
-  get passwordCtrl() { return this.form.get('password'); }
+  get direccionCtrl() { return this.form.get('direccion'); }
 }
