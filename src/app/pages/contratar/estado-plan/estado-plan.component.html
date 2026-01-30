@@ -1,28 +1,50 @@
-<div class="flow">
-  <div class="card">
-    <h2>Estado y Plan</h2>
-    <p class="muted">Selecciona tu estado para continuar.</p>
+<div class="flow-card">
+  <h2 class="title">Estado y Plan</h2>
+  <p class="subtitle">Selecciona tu plan y tu estado para continuar.</p>
 
-    <div class="grid">
-      <button class="option" (click)="selectState('Nuevo México')" [class.active]="selectedState==='Nuevo México'">
-        Nuevo México
-      </button>
+  <div class="loading" *ngIf="loading">Cargando planes...</div>
+  <div class="error" *ngIf="error">{{ error }}</div>
 
-      <button class="option" (click)="selectState('Texas')" [class.active]="selectedState==='Texas'">
-        Texas
-      </button>
-    </div>
+  <!-- PLANES -->
+  <div class="plans" *ngIf="!loading && !error">
+    <button
+      class="plan-card"
+      *ngFor="let p of planes"
+      type="button"
+      [class.is-selected]="p.id === selectedProductId"
+      (click)="seleccionarPlan(p.id)"
+    >
+      <span class="badge" *ngIf="p.popular">Más Popular</span>
 
-    <div class="hint" *ngIf="!productId">
-      No llegó <b>productId</b> (vuelve a Planes y selecciona un plan).
-    </div>
+      <h3 class="plan-title">{{ p.nombre }}</h3>
+      <p class="plan-desc">{{ p.descripcion }}</p>
 
-    <div class="actions">
-      <button class="btn ghost" (click)="back()">Anterior</button>
+      <div class="price">
+        <span class="price-label">desde</span>
+        <span class="price-value">MXN {{ p.precio | number:'1.0-0' }}</span>
+        <span class="price-sub">por año</span>
+      </div>
 
-      <button class="btn primary" (click)="next()" [disabled]="!productId || !selectedState">
-        Siguiente
-      </button>
-    </div>
+      <div class="incluye">
+        <strong>Incluye:</strong>
+        <ul>
+          <li *ngFor="let item of p.incluye">{{ item }}</li>
+        </ul>
+        <div class="extras" *ngIf="p.extrasMas">+{{ p.extrasMas }} características más</div>
+      </div>
+    </button>
+  </div>
+
+  <!-- ACCIONES -->
+  <div class="actions">
+    <button class="btn ghost" type="button" (click)="anterior()">Anterior</button>
+
+    <button
+      class="btn primary"
+      type="button"
+      [disabled]="!selectedProductId"
+      (click)="siguiente()">
+      Siguiente
+    </button>
   </div>
 </div>
