@@ -13,7 +13,7 @@ export type CustomerDraft = {
 // Declara un servicio Angular disponible globalmente (singleton) en toda la app.
 // providedIn: 'root' => Angular lo registra en el inyector raíz automáticamente.
 @Injectable({ providedIn: 'root' })
-export class LlcFlowService {
+export class PjiFlowService {
   // Clave usada para persistir el estado en localStorage.
   // Todo lo que guarde este servicio se almacena bajo este key.
   private readonly key = 'pji_flow';

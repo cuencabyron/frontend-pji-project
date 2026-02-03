@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { CustomerService } from '../../../services/customer.service'; 
+import { PjiFlowService } from '../../../services/pji-flow.service'; 
 
 @Component({
   selector: 'app-registro-basico',
@@ -18,6 +20,8 @@ export class RegistroBasicoComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private customerService: CustomerService,
+    private flow: PjiFlowService,
   ) {}
 
   ngOnInit(): void {
@@ -36,8 +40,38 @@ export class RegistroBasicoComponent implements OnInit {
     this.router.navigate(['/planes']);
   }
 
-  siguiente(): void {
+  siguiente(): void 
+  {
     if (this.form.invalid || !this.productId) return;
+
+    const dto = {
+      name: this.form.value.nombre,
+      phone: this.form.value.telefono,
+      email: this.form.value.email,
+      address: this.form.value.direccion,
+    };
+
+    this.customerService.create(dto).subscribe({
+      next: (created) => {
+        // opcional: guardar en flow para siguientes pasos
+        this.flow.setCustomer({
+          fullName: created.name,
+          phone: created.phone,
+          email: created.email,
+          address: created.address,
+        });
+
+        // navegar al siguiente paso enviando customerId
+        this.router.navigate(['/contratar/estado-plan'], {
+          queryParams: { productId: this.productId, customerId: created.customer_id },
+        });
+      },
+      error: (err) => {
+        console.error(err);
+        // aquí puedes mostrar un mensaje bonito en UI
+        // ejemplo: this.error = 'No se pudo guardar el cliente';
+      },
+    });
 
     this.router.navigate(['/contratar/estado-plan'], {
       queryParams: { productId: this.productId },
