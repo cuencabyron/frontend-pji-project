@@ -124,7 +124,8 @@ export class EstadoPlanComponent implements OnInit {
     });
   }
 
-  siguiente(): void {
+  siguiente(): void 
+  {
     if (!this.selectedProductId || !this.selectedProductName) return;
 
     this.router.navigate(['/contratar/payment'], {

@@ -1,7 +1,6 @@
-payment.component.html
 <div class="flow">
   <div class="card">
-    <h2>Pago</h2>
+    <h2 class="title">Pago</h2>
     <p class="muted">Completa el pago para continuar.</p>
 
     <div class="summary">
@@ -19,10 +18,16 @@ payment.component.html
     <div class="paybox">
       <div class="secure">
         <b>Pago seguro</b>
-        <span> (demo)</span>
       </div>
 
       <div class="fakeinput">Número de tarjeta</div>
+      <!--<input
+        type = "text"
+        inputmode = "numeric"
+        autocomplete = "cc-number"
+        placeholder="Numero de tarjeta"
+        formControlName = "cardNumber"
+      /> -->
       <div class="note">Aceptamos Visa, Mastercard, American Express y más.</div>
     </div>
 

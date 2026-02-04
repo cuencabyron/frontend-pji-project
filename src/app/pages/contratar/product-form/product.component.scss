@@ -1,21 +1,32 @@
+:host {
+  display: block;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 /* Contenedor general */
-.flow,
-.flow-card {
+.flow {
   min-height: calc(100vh - 80px);
-  display: grid;
-  place-items: center;
-  padding: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 3rem 1rem;
 }
 
 /* Tarjeta principal */
-.card,
-.flow-card {
+.card {
   width: min(980px, 100%); /* un poco más ancho para 3 cards */
   background: rgba(255, 255, 255, 0.9);
   border: 1px solid rgba(0,0,0,.08);
   border-radius: 14px;
   padding: 22px;
   box-shadow: 0 16px 40px rgba(0,0,0,.08);
+}
+
+.title {
+  margin: 0 0 6px;
+  font-size: 22px;
+  font-weight: 800;
+  color: #006400;
 }
 
 .muted { opacity: .7; margin-top: 6px; }
