@@ -6,8 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router';
   selector: 'app-pago',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './pago.component.html',
-  styleUrls: ['./pago.component.scss'],
+  templateUrl: './payment.component.html',
+  styleUrls: ['./payment.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
@@ -25,7 +25,7 @@ export class PagoComponent implements OnInit
 
   back() {
     // vuelve al paso anterior conservando productId
-    this.router.navigate(['/contratar/estado-plan'], {
+    this.router.navigate(['/contratar/product'], {
       queryParams: { productId: this.productId },
     });
   }

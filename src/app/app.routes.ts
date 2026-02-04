@@ -14,26 +14,26 @@ export const routes: Routes = [
     component: ContratarComponent,
     children: [
       {
-        path: 'registro-basico',
+        path: 'customer',
         loadComponent: () =>
-          import('./pages/contratar/registro-basico/registro-basico.component')
+          import('./pages/contratar/customer-form/customer.component')
             .then(m => m.RegistroBasicoComponent),
       },
       {
-        path: 'estado-plan',
+        path: 'product',
         loadComponent: () =>
-          import('./pages/contratar/estado-plan/estado-plan.component')
+          import('./pages/contratar/product-form/product.component')
             .then(m => m.EstadoPlanComponent),
       },
       {
-        path: 'pago',
+        path: 'payment',
         loadComponent: () =>
-          import('./pages/contratar/pago/pago.component')
+          import('./pages/contratar/payment-form/payment.component')
             .then(m => m.PagoComponent),
       },
 
       // si entran a /contratar sin nada
-      { path: '', redirectTo: 'registro-basico', pathMatch: 'full' },
+      { path: '', redirectTo: 'customer', pathMatch: 'full' },
     ],
   },
 

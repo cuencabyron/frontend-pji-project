@@ -51,8 +51,8 @@ const PLAN_UI: Record<string, { incluye: string[]; extrasMas?: number }> = {
   selector: 'app-estado-plan',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './estado-plan.component.html',
-  styleUrls: ['./estado-plan.component.scss'],
+  templateUrl: './product.component.html',
+  styleUrls: ['./product.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EstadoPlanComponent implements OnInit {
@@ -71,7 +71,7 @@ export class EstadoPlanComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Si venías con productId desde /registro-basico, lo precargamos (opcional)
+    // Si venías con productId desde /customer, lo precargamos (opcional)
     this.selectedProductId = this.route.snapshot.queryParamMap.get('productId');
 
     this.cargarPlanes();
@@ -117,7 +117,7 @@ export class EstadoPlanComponent implements OnInit {
   }
 
   anterior(): void {
-    this.router.navigate(['/contratar/registro-basico'], {
+    this.router.navigate(['/contratar/customer'], {
       queryParams: { productId: this.selectedProductId },
     });
   }
@@ -125,7 +125,7 @@ export class EstadoPlanComponent implements OnInit {
   siguiente(): void {
     if (!this.selectedProductId) return;
 
-    this.router.navigate(['/contratar/pago'], {
+    this.router.navigate(['/contratar/payment'], {
       queryParams: {
         productId: this.selectedProductId,
       },

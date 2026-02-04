@@ -111,7 +111,7 @@ export class PlanesComponent implements OnInit {
   {
     // Aquí decides qué hacer con el plan seleccionado:
     // navegar al siguiente paso, guardar en un servicio, etc.
-    this.router.navigate(['/contratar/registro-basico'], {
+    this.router.navigate(['/contratar/customer'], {
       queryParams: { productId: plan.id },
     });
 

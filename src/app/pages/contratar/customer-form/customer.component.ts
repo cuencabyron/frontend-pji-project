@@ -9,8 +9,8 @@ import { PjiFlowService } from '../../../services/pji-flow.service';
   selector: 'app-registro-basico',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './registro-basico.component.html',
-  styleUrls: ['./registro-basico.component.scss'],
+  templateUrl: './customer.component.html',
+  styleUrls: ['./customer.component.scss'],
 })
 export class RegistroBasicoComponent implements OnInit {
   productId: string | null = null;
@@ -21,7 +21,7 @@ export class RegistroBasicoComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private customerService: CustomerService,
-    private flow: PjiFlowService,
+    private readonly flow: PjiFlowService,
   ) {}
 
   ngOnInit(): void {
@@ -37,7 +37,7 @@ export class RegistroBasicoComponent implements OnInit {
   }
 
   cancelar(): void {
-    this.router.navigate(['/planes']);
+    this.router.navigate(['/']);
   }
 
   siguiente(): void 
@@ -53,7 +53,6 @@ export class RegistroBasicoComponent implements OnInit {
 
     this.customerService.create(dto).subscribe({
       next: (created) => {
-        // opcional: guardar en flow para siguientes pasos
         this.flow.setCustomer({
           fullName: created.name,
           phone: created.phone,
@@ -62,18 +61,18 @@ export class RegistroBasicoComponent implements OnInit {
         });
 
         // navegar al siguiente paso enviando customerId
-        this.router.navigate(['/contratar/estado-plan'], {
+        this.router.navigate(['/contratar/product'], {
           queryParams: { productId: this.productId, customerId: created.customer_id },
         });
       },
       error: (err) => {
         console.error(err);
-        // aquí puedes mostrar un mensaje bonito en UI
+        // mostrar un mensaje en UI
         // ejemplo: this.error = 'No se pudo guardar el cliente';
       },
     });
 
-    this.router.navigate(['/contratar/estado-plan'], {
+    this.router.navigate(['/contratar/product'], {
       queryParams: { productId: this.productId },
     });
   }

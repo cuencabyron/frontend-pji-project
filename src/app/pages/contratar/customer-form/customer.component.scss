@@ -5,7 +5,7 @@
 
 /* Colores PJI */
 $primary-green: #A8CF41;
-$dark-green: #1D4C2C;
+$dark-green: #006400;
 $white: #FFFFFF;
 $light-gray: #F9F9F9;
 
@@ -18,10 +18,10 @@ $muted: rgba(31, 41, 55, 0.65);
   place-items: center;
   padding: 28px 16px;
 
-  /* fondo suave con tintes PJI */
+  /* fondo suave con tintes PJI 
   background:
-    radial-gradient(1200px 600px at 50% 15%, rgba(168, 207, 65, 0.18), transparent 55%),
-    linear-gradient(180deg, rgba(168, 207, 65, 0.08), transparent 40%);
+    radial-gradient(1200px 600px at 50% 15%, rgb(144, 238, 144), transparent 55%),
+    linear-gradient(180deg, rgb(144, 238, 144), transparent 40%); */
 }
 
 .flow-card {
