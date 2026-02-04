@@ -12,7 +12,7 @@
       *ngFor="let p of planes"
       type="button"
       [class.is-selected]="p.id === selectedProductId"
-      (click)="seleccionarPlan(p.id)"
+      (click)="seleccionarPlan(p)"
     >
       <span class="badge" *ngIf="p.popular">Más Popular</span>
 

@@ -14,12 +14,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class PagoComponent implements OnInit 
 {
   productId: string | null = null;
+  productName: string | null = null;
   state: string | null = null;
 
   constructor(private route: ActivatedRoute, private router: Router) {}
 
-  ngOnInit(): void {
-    this.productId = this.route.snapshot.queryParamMap.get('productId');
+  ngOnInit(): void 
+  {
+    this.productName = this.route.snapshot.queryParamMap.get('productName');
     this.state = this.route.snapshot.queryParamMap.get('state');
   }
 

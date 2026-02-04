@@ -62,6 +62,7 @@ export class EstadoPlanComponent implements OnInit {
 
   // Selecciones del usuario
   selectedProductId: string | null = null;
+  selectedProductName: string | null = null;
 
   constructor(
     private productService: ProductService,
@@ -111,8 +112,9 @@ export class EstadoPlanComponent implements OnInit {
     });
   }
 
-  seleccionarPlan(planId: string): void {
-    this.selectedProductId = planId;
+  seleccionarPlan(plan: PlanCard): void {
+    this.selectedProductId = plan.id;
+    this.selectedProductName = plan.nombre;
     this.cdr.markForCheck();
   }
 
@@ -123,11 +125,12 @@ export class EstadoPlanComponent implements OnInit {
   }
 
   siguiente(): void {
-    if (!this.selectedProductId) return;
+    if (!this.selectedProductId || !this.selectedProductName) return;
 
     this.router.navigate(['/contratar/payment'], {
       queryParams: {
         productId: this.selectedProductId,
+        productName: this.selectedProductName,
       },
     });
   }
