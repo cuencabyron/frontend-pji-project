@@ -1,6 +1,8 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+// Servicio de flujo (wizard) que guarda el estado entre pantallas
+import { PjiFlowService } from '../../../services/pji-flow.service';
 
 @Component({
   selector: 'app-pago',
@@ -17,10 +19,15 @@ export class PagoComponent implements OnInit
   productName: string | null = null;
   state: string | null = null;
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute, 
+    private router: Router,
+    private readonly flow: PjiFlowService,    // Estado compartido del flujo
+  ) {}
 
   ngOnInit(): void 
   {
+    this.flow.setStep(3);
     this.productName = this.route.snapshot.queryParamMap.get('productName');
     this.state = this.route.snapshot.queryParamMap.get('state');
   }

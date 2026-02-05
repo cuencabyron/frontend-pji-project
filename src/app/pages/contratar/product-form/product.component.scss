@@ -10,6 +10,26 @@
   justify-content: center;
   align-items: flex-start;
   padding: 3rem 1rem;
+
+  /* fondo suave con tintes PJI */
+  background:
+    radial-gradient(
+      1200px 600px at 50% 10%,
+      rgb(144, 238, 144) 0%,
+      rgb(144, 238, 144, 0.6) 40%,
+      rgb(144, 238, 14, 0.25) 65%,
+      rgb(144, 238, 144, 0.1) 80%,
+    ),
+    linear-gradient(
+      180deg,
+      rgb(144, 238, 144), 0%,
+      rgb(144, 238, 144, 0.35) 60%,
+      rgb(144, 238, 144, 0.15) 85%,
+      rgb(144, 238, 144, 0.08) 100%,
+    );
+  
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 /* Tarjeta principal */

@@ -1,0 +1,48 @@
+.step {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  flex: 1;
+}
+
+.circle {
+  width: 36px;
+  height: 36px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: #e3e3e3;
+  color: #8a8a8a;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Texto debajo */
+.label {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #7a7a7a;
+  font-weight: 600;
+}
+
+/* Paso completado */
+.step.done .circle {
+  background: #89c53a;
+  color: #fff;
+}
+
+.step.done .label {
+  color: #4d7f1d;
+}
+
+/* Paso actual */
+.step.active .circle {
+  background: #2f80ed;
+  color: #fff;
+}
+
+.step.active .label {
+  color: #2f80ed;
+}
+

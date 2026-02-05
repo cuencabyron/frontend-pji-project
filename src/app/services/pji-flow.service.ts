@@ -1,6 +1,9 @@
 // Importa el decorador Injectable de Angular para declarar este servicio como inyectable.
 import { Injectable } from '@angular/core';
 
+
+import { BehaviorSubject, Observable } from 'rxjs';
+
 // Define el “shape” (estructura) de los datos del cliente que se guardarán temporalmente.
 // Esto sirve como borrador (draft) durante un flujo tipo wizard/checkout.
 export type CustomerDraft = {
@@ -17,6 +20,16 @@ export class PjiFlowService {
   // Clave usada para persistir el estado en localStorage.
   // Todo lo que guarde este servicio se almacena bajo este key.
   private readonly key = 'pji_flow';
+
+  private step$ = new BehaviorSubject<number>(1);
+
+  setStep(step: number): void{
+    this.step$.next(step);
+  }
+
+  getStep(): Observable<number> {
+    return this.step$.asObservable();
+  }
 
   // Estado interno del “flujo” (plan seleccionado, estado, datos del cliente).
   // Se inicializa con load() para recuperar información persistida (si existe).

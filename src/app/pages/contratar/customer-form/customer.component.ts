@@ -54,6 +54,7 @@ export class RegistroBasicoComponent implements OnInit {
 
   // Hook del ciclo de vida que se ejecuta al inicializar el componente
   ngOnInit(): void {
+    this.flow.setStep(1);
     // Obtiene el productId desde los query params de la URL
     this.productId = this.route.snapshot.queryParamMap.get('productId');
     console.log('productId:', this.productId);

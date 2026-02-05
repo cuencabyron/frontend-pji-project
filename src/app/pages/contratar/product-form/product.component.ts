@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../../services/product.service';
 import { Product } from '../../../models/product.dto';
+// Servicio de flujo (wizard) que guarda el estado entre pantallas
+import { PjiFlowService } from '../../../services/pji-flow.service';
 
 type BtnColor = 'green' | 'dark';
 
@@ -69,9 +71,11 @@ export class EstadoPlanComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private cdr: ChangeDetectorRef,
+    private readonly flow: PjiFlowService,    // Estado compartido del flujo
   ) {}
 
   ngOnInit(): void {
+    this.flow.setStep(2);
     // Si venías con productId desde /customer, lo precargamos (opcional)
     this.selectedProductId = this.route.snapshot.queryParamMap.get('productId');
 
