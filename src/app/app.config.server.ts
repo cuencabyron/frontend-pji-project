@@ -4,7 +4,7 @@ import { appConfig } from './app.config';
 import { serverRoutes } from './app.routes.server';
 
 import { registerLocaleData } from '@angular/common';
-import localeEsMx from '@angular/common/locales/es-Mx';
+import localeEsMx from '@angular/common/locales/es-MX';
 
 registerLocaleData(localeEsMx);
 

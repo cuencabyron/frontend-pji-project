@@ -71,7 +71,7 @@ export class EstadoPlanComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private cdr: ChangeDetectorRef,
-    private readonly flow: PjiFlowService,    // Estado compartido del flujo
+    private readonly flow: PjiFlowService,  
   ) {}
 
   ngOnInit(): void {

@@ -5,7 +5,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { routes } from './app.routes';
 
 import { registerLocaleData } from '@angular/common';
-import localeEsMx from '@angular/common/locales/es-Mx';
+import localeEsMx from '@angular/common/locales/es-MX';
 
 registerLocaleData(localeEsMx);
 

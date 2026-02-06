@@ -13,7 +13,7 @@ import { PjiFlowService } from '../../services/pji-flow.service';
 export class ContratarComponent implements OnInit {
   steps = [
     'Registro del cliente',
-    'Elegir plan',
+    'Confirmar plan',
     'Confirmar pago',
   ];
 
