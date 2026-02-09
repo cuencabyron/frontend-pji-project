@@ -8,11 +8,6 @@
         <div class="label">Plan</div>
         <div class="value">{{ productName || 'No seleccionado' }}</div>
       </div>
-
-      <div>
-        <div class="label">Estado</div>
-        <div class="value">{{ state || 'No seleccionado' }}</div>
-      </div>
     </div>
 
     <div class="paybox">
@@ -20,18 +15,35 @@
         <b>Pago seguro</b>
       </div>
 
-      <div class="fakeinput">Número de tarjeta</div>
-      <!--<input
-        type = "text"
-        inputmode = "numeric"
-        autocomplete = "cc-number"
-        placeholder="Numero de tarjeta"
-        formControlName = "cardNumber"
-      /> -->
-      <div class="note">Aceptamos Visa, Mastercard, American Express y más.</div>
+      <form class="grid" [formGroup]="form">
+        <div class="field">
+          <label>Número de tarjeta<span> * </span></label>
+          <input type="text" inputmode="numeric" placeholder="0000 0000 0000 0000" formControlName="cardNumber" />
+          <small class="error" *ngIf="form.get('cardnumber')?.touched && form.get('cardnumber')?.invalid">
+            Ingrese un número de tarjeta valido 
+          </small>
+        </div>
+        <div class="note">Aceptamos Visa, Mastercard, American Express y más.</div>
+
+        <div class="field">
+          <label>Fecha de Expiración <span> * </span></label>
+          <input type="text" inputmode="numeric" placeholder="MM/YY" formControlName="exp" />
+          <small class="error" *ngIf="form.get('exp')?.touched && form.get('exp')?.invalid">
+            Ingrese una fecha valida
+          </small>
+        </div>
+
+        <div class="field">
+          <label>CVV <span> * </span></label>
+          <input type="text" inputmode="numeric" placeholder="123" formControlName="cvv" />
+          <small class="error" *ngIf="form.get('cvv')?.touched && form.get('cvv')?.invalid">
+            No debe de contener más de tres digitos.
+          </small>
+        </div>
+      </form>
     </div>
 
-    <button class="btn pay" (click)="pay()" [disabled]="!productId || !state">
+    <button class="btn pay" (click)="pay()" [disabled]="!productId">
       Pagar
     </button>
 
