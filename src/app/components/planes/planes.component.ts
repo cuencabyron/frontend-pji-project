@@ -77,7 +77,8 @@ export class PlanesComponent implements OnInit {
 
     this.productService.getAll().subscribe({
       next: (products: Product[]) => {
-        this.planes = products.map((p: Product, index: number) => this.mapProductToPlan(p, index));
+        this.planes = products.map((p: Product, index: number) => 
+          this.mapProductToPlan(p, index));
         this.loading = false;
         this.cdr.markForCheck();
       },
@@ -92,6 +93,7 @@ export class PlanesComponent implements OnInit {
 
   private mapProductToPlan(product: Product, index: number): Plan {
   const ui = PLAN_UI[product.name] ?? {
+    incluye: [],
     extrasMas: undefined,
   };
 
@@ -100,7 +102,7 @@ export class PlanesComponent implements OnInit {
     nombre: product.name,
     descripcion: product.description,
     precio: Number(product.min_monthly_rent ?? product.max_monthly_rent ?? 0),
-    incluye: ui.incluye,
+    incluye: ui.incluye ?? [],
     extrasMas: ui.extrasMas,
     popular: index === 1,
     btnColor: index === 1 ? 'dark' : 'green',
