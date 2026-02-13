@@ -59,7 +59,7 @@
       </form>
     </div>
 
-    <button class="btn pay" (click)="pay()" [disabled]="!productId">
+    <button class="btn pay" (click)="pay()" [disabled]="form.invalid">
       Pagar
     </button>
 

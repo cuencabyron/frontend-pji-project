@@ -58,11 +58,18 @@ export class PagoComponent implements OnInit
 
   pay() 
   {
-    // aquí luego conectas Stripe u otro
-    alert(`Simulación: pagar plan=${this.productId}`);
-
-    // Si el formulario es inválido no hace nada
-    if (this.form.invalid) return;
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+    
+     // Simulación tipo Stripe
+    setTimeout(() => {
+      alert('Pago procesado exitosamente con Stripe');
+      // aquí puedes redirigir
+      // this.router.navigate(['/success']);
+    }, 1500);
+    
 
     // Construye el DTO esperado por el backend
     const dto = {
