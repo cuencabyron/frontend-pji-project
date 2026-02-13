@@ -49,6 +49,25 @@ export class PagoComponent implements OnInit
 
   }
 
+  formatCardNumber(event: Event): void {
+    const input = event.target as HTMLInputElement;
+
+    // quitar todo lo que no sea número
+    let value = input.value.replace(/\D/g, '');
+
+    // limitar a 16 dígitos
+    value = value.substring(0, 16);
+
+    // agregar espacio cada 4 números
+    const formatted = value.replace(/(.{4})/g, '$1 ').trim();
+
+    // actualizar input visualmente
+    input.value = formatted;
+
+    // actualizar form control SIN disparar loop
+    this.form.get('cardNumber')?.setValue(formatted, { emitEvent: false });
+  }
+
   back() {
     // vuelve al paso anterior conservando productId
     this.router.navigate(['/contratar/product'], {

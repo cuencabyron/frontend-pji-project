@@ -1,19 +1,14 @@
 <div class="flow">
-  <div class="card">
+  <div class="flow-card">
     <h2 class="title">Pago</h2>
-    <p class="muted">Completa el pago para continuar.</p>
+    <p class="subtitle">Completa el pago para continuar.</p>
 
-    <div class="summary">
-      <div>
-        <div class="label">Plan</div>
-        <div class="value">{{ productName || 'No seleccionado' }}</div>
-      </div>
+    <div class="plan-summary">
+      <div class="plan-label">Plan Seleccionado</div>
+      <div class="plan-value">{{ productName }}</div>
     </div>
 
-    <div class="paybox">
-      <div class="secure">
-        <b>Pago seguro</b>
-      </div>
+      <div class="section-title">Tarjeta de crédito o débito</div>
 
       <form class="grid" [formGroup]="form">
         <div class="field">
@@ -26,12 +21,12 @@
 
         <div class="field">
           <label>Número de tarjeta <span> * </span></label>
-          <input type="text" inputmode="numeric" placeholder="0000 0000 0000 0000" formControlName="cardNumber" />
-          <small class="error" *ngIf="form.get('cardnumber')?.touched && form.get('cardnumber')?.invalid">
+          <input type="text" inputmode="numeric" placeholder="0000 0000 0000 0000" formControlName="cardNumber" (input)="formatCardNumber($event)" maxlength="19"/>
+          <small class="note">Aceptamos Visa, Mastercard, American Express y más.</small>
+          <small class="error" *ngIf="form.get('cardNumber')?.touched && form.get('cardNumber')?.invalid">
             El numero de tarjeta es obligatorio
           </small>
         </div>
-        <div class="note">Aceptamos Visa, Mastercard, American Express y más.</div>
 
         <div class="field">
           <label>Fecha de expiración <span> * </span></label>
@@ -57,9 +52,8 @@
           </small>
         </div>
       </form>
-    </div>
 
-    <button class="btn pay" (click)="pay()" [disabled]="form.invalid">
+    <button class="btn primary pay-btn" (click)="pay()" [disabled]="form.invalid">
       Pagar
     </button>
 
