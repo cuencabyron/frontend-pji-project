@@ -17,27 +17,43 @@
 
       <form class="grid" [formGroup]="form">
         <div class="field">
-          <label>Número de tarjeta<span> * </span></label>
+          <label>Nombre del titular <span> * </span></label>
+          <input type="text" placeholder="Ingresa tu nombre" formControlName="titular" />
+          <small class="error" *ngIf="form.get('titular')?.touched && form.get('titular')?.invalid">
+            Ingrese un nombre valido
+          </small>
+        </div>
+
+        <div class="field">
+          <label>Número de tarjeta <span> * </span></label>
           <input type="text" inputmode="numeric" placeholder="0000 0000 0000 0000" formControlName="cardNumber" />
           <small class="error" *ngIf="form.get('cardnumber')?.touched && form.get('cardnumber')?.invalid">
-            Ingrese un número de tarjeta valido 
+            El numero de tarjeta es obligatorio
           </small>
         </div>
         <div class="note">Aceptamos Visa, Mastercard, American Express y más.</div>
 
         <div class="field">
-          <label>Fecha de Expiración <span> * </span></label>
+          <label>Fecha de expiración <span> * </span></label>
           <input type="text" inputmode="numeric" placeholder="MM/YY" formControlName="exp" />
           <small class="error" *ngIf="form.get('exp')?.touched && form.get('exp')?.invalid">
-            Ingrese una fecha valida
+            Se requiere una fecha de vencimiento
           </small>
         </div>
 
         <div class="field">
-          <label>CVV <span> * </span></label>
+          <label>Código de verificación <span> * </span></label>
           <input type="text" inputmode="numeric" placeholder="123" formControlName="cvv" />
           <small class="error" *ngIf="form.get('cvv')?.touched && form.get('cvv')?.invalid">
             No debe de contener más de tres digitos.
+          </small>
+        </div>
+
+        <div class="field">
+          <label>Nombre en la tarjeta <span> * </span></label>
+          <input type="text" placeholder="Ingresa el nombre tal y como aparece esta en la tarjeta" formControlName="bank" />
+          <small class="error" *ngIf="form.get('bank')?.touched && form.get('bank')?.invalid">
+           El nombre en la tarjeta es obligatorio
           </small>
         </div>
       </form>

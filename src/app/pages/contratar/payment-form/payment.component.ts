@@ -40,9 +40,11 @@ export class PagoComponent implements OnInit
     this.productName = this.route.snapshot.queryParamMap.get('productName');
     // Inicializa el formulario reactivo con validaciones
     this.form = this.fb.group({
+      titular: ['', [Validators.required, Validators.minLength(16)]],
       cardNumber: ['', [Validators.required, Validators.minLength(16)]],
       exp: ['', Validators.required],
-      cvv: ['', Validators.required]
+      cvv: ['', Validators.required],
+      bank: ['', Validators.required],
     });
 
   }
@@ -80,6 +82,10 @@ export class PagoComponent implements OnInit
 
   // Getters de conveniencia para el template.
   // Permiten escribir: nombreCtrl?.invalid en lugar de form.get('nombre')?.invalid
+  get titularCtrl() {
+    return this.form.get('titular');
+  }
+
   get cardNumberCtrl() {
     return this.form.get('cardNumber');
   }
@@ -90,5 +96,9 @@ export class PagoComponent implements OnInit
 
   get cvvCtrl() {
     return this.form.get('cvv');
+  }
+
+  get bank() {
+    return this.form.get('bank');
   }
 }
