@@ -19,18 +19,41 @@
           </small>
         </div>
 
-        <div class="field">
-          <label>Número de tarjeta <span> * </span></label>
-          <input type="text" inputmode="numeric" placeholder="0000 0000 0000 0000" formControlName="cardNumber" (input)="formatCardNumber($event)" maxlength="19"/>
-          <small class="note">Aceptamos Visa, Mastercard, American Express y más.</small>
-          <small class="error" *ngIf="form.get('cardNumber')?.touched && form.get('cardNumber')?.invalid">
-            El numero de tarjeta es obligatorio
+        <div class="field card-field">
+          <label>Número de tarjeta <span>*</span></label>
+
+          <div class="card-input-wrapper">
+            <input
+              type="text"
+              inputmode="numeric"
+              placeholder="0000 0000 0000 0000"
+              formControlName="cardNumber"
+              (input)="formatCardNumber($event)"
+              [attr.maxlength]="cardType === 'amex' ? 17 : 19"
+            />
+
+            <img *ngIf="cardType === 'visa'" 
+                  src="assets/img/visa.png" 
+                  class="card-logo" />
+
+            <img *ngIf="cardType === 'mastercard'" 
+                  src="assets/img/mastercard.png" 
+                  class="card-logo" />
+
+            <img *ngIf="cardType === 'amex'" 
+                  src="assets/img/amex.png" 
+                  class="card-logo" />
+          </div>
+
+          <small class="error"
+            *ngIf="cardNumberCtrl?.touched && cardNumberCtrl?.invalid">
+            El número de tarjeta es obligatorio
           </small>
         </div>
 
         <div class="field">
           <label>Fecha de expiración <span> * </span></label>
-          <input type="text" inputmode="numeric" placeholder="MM/YY" formControlName="exp" />
+          <input type="text" inputmode="numeric" placeholder="MM/YY" formControlName="exp" (input)="formatExpiry($event)" maxlength="5"/>
           <small class="error" *ngIf="form.get('exp')?.touched && form.get('exp')?.invalid">
             Se requiere una fecha de vencimiento
           </small>
@@ -38,7 +61,7 @@
 
         <div class="field">
           <label>Código de verificación <span> * </span></label>
-          <input type="text" inputmode="numeric" placeholder="123" formControlName="cvv" />
+          <input type="text" inputmode="numeric" placeholder="{{ cvvLength === 4 ? '1234' : '123' }}" formControlName="cvv" [attr.maxlength]="cvvLength"/>
           <small class="error" *ngIf="form.get('cvv')?.touched && form.get('cvv')?.invalid">
             No debe de contener más de tres digitos.
           </small>
@@ -53,8 +76,12 @@
         </div>
       </form>
 
-    <button class="btn primary pay-btn" (click)="pay()" [disabled]="form.invalid">
-      Pagar
+    <button
+      class="btn primary pay-btn"
+      (click)="pay()"
+      [disabled]="isLoading">
+      <span *ngIf="!isLoading">Pagar</span>
+      <span *ngIf="isLoading" class="spinner"></span>
     </button>
 
     <div class="actions">

@@ -1,15 +1,8 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-// Servicio de flujo (wizard) que guarda el estado entre pantallas
 import { PjiFlowService } from '../../../services/pji-flow.service';
-// Importa utilidades para formularios reactivos:
-// - FormBuilder: facilita la creación del formulario
-// - FormGroup: representa el formulario completo
-// - Validators: validaciones síncronas (required, email, minLength, etc.)
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-// Servicio encargado de crear clientes en el backend
-import { PaymentService } from '../../../services/payment.service';
 
 @Component({
   selector: 'app-pago',
@@ -17,97 +10,152 @@ import { PaymentService } from '../../../services/payment.service';
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
+export class PagoComponent implements OnInit {
 
-export class PagoComponent implements OnInit 
-{
   productId: string | null = null;
   productName: string | null = null;
-  // Formulario reactivo para capturar los datos del cliente
+
   form!: FormGroup;
 
+  isLoading = false;
+
+  // Solo para UI (detección visual de tarjeta)
+  cardType: 'visa' | 'mastercard' | 'amex' | null = null;
+  maxCardLength = 16;
+  cvvLength = 3;
+
   constructor(
-    private fb: FormBuilder,           // Construcción del formulario
-    private route: ActivatedRoute, 
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
     private router: Router,
-    private readonly flow: PjiFlowService,    // Estado compartido del flujo
+    private readonly flow: PjiFlowService,
   ) {}
 
-  ngOnInit(): void 
-  {
+  ngOnInit(): void {
     this.flow.setStep(3);
     this.productName = this.route.snapshot.queryParamMap.get('productName');
-    // Inicializa el formulario reactivo con validaciones
+
     this.form = this.fb.group({
-      titular: ['', [Validators.required, Validators.minLength(16)]],
-      cardNumber: ['', [Validators.required, Validators.minLength(16)]],
+      titular: ['', Validators.required],
+      cardNumber: ['', Validators.required],
       exp: ['', Validators.required],
-      cvv: ['', Validators.required],
+      cvv: ['', Validators.required,  Validators.pattern(/^\d{3}$/)],
       bank: ['', Validators.required],
     });
-
   }
 
-  formatCardNumber(event: Event): void {
+  formatCardNumber(event: Event): void 
+  {
     const input = event.target as HTMLInputElement;
 
-    // quitar todo lo que no sea número
     let value = input.value.replace(/\D/g, '');
 
-    // limitar a 16 dígitos
-    value = value.substring(0, 16);
+    // Detectar tipo (solo visual)
+    if (value.startsWith('4')) {
+      this.cardType = 'visa';
+      this.maxCardLength = 16;
+      this.cvvLength = 3;
+    } else if (value.startsWith('5')) {
+      this.cardType = 'mastercard';
+      this.maxCardLength = 16;
+      this.cvvLength = 3;
+    } else if (value.startsWith('3')) {
+      this.cardType = 'amex';
+      this.maxCardLength = 15;
+      this.cvvLength = 4;
+    } else {
+      this.cardType = null;
+      this.maxCardLength = 16;
+      this.cvvLength = 3;
+    }
 
-    // agregar espacio cada 4 números
-    const formatted = value.replace(/(.{4})/g, '$1 ').trim();
+    this.form.get('cvv')?.setValidators([
+      Validators.required,
+      Validators.pattern(new RegExp(`^\\d{${this.cvvLength}}$`))
+    ]);
 
-    // actualizar input visualmente
-    input.value = formatted;
+    this.form.get('cvv')?.updateValueAndValidity({ emitEvent: false });
 
-    // actualizar form control SIN disparar loop
+    value = value.substring(0, this.maxCardLength);
+
+    let formatted = '';
+
+    if (this.cardType === 'amex') {
+      const part1 = value.substring(0, 4);
+      const part2 = value.substring(4, 10);
+      const part3 = value.substring(10, 15);
+      formatted = [part1, part2, part3].filter(Boolean).join(' ');
+    } else {
+      formatted = value.match(/.{1,4}/g)?.join(' ') || '';
+    }
+
     this.form.get('cardNumber')?.setValue(formatted, { emitEvent: false });
   }
 
+  formatExpiry(event: Event): void 
+  {
+    const input = event.target as HTMLInputElement;
+
+    let value = input.value.replace(/\D/g, ''); // solo números
+
+    value = value.substring(0, 4); // máximo 4 dígitos
+
+    // Validar mes mientras escribe
+    if (value.length >= 1) 
+    {
+      const firstDigit = value.charAt(0);
+
+      if (parseInt(firstDigit) > 1) {
+        value = '0' + firstDigit;
+      }
+    }
+
+    if (value.length >= 2) {
+      const month = parseInt(value.substring(0, 2));
+
+      if (month === 0) {
+        value = '01' + value.substring(2);
+      }
+
+      if (month > 12) {
+        value = '12' + value.substring(2);
+      }
+    }
+
+    let formatted = '';
+
+    if (value.length > 2) {
+      formatted = value.substring(0, 2) + '/' + value.substring(2);
+    } else {
+      formatted = value;
+    }
+
+    this.form.get('exp')?.setValue(formatted, { emitEvent: false });
+  }
+
   back() {
-    // vuelve al paso anterior conservando productId
     this.router.navigate(['/contratar/product'], {
       queryParams: { productId: this.productId },
     });
   }
 
-  pay() 
-  {
+  pay() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
-    
-     // Simulación tipo Stripe
+
+    this.isLoading = true;
+
+    // Simulación tipo Stripe
     setTimeout(() => {
+      this.isLoading = false;
       alert('Pago procesado exitosamente con Stripe');
-      // aquí puedes redirigir
-      // this.router.navigate(['/success']);
-    }, 1500);
-    
-
-    // Construye el DTO esperado por el backend
-    const dto = {
-      amount: this.form.value.nombre,
-      method: this.form.value.telefono,
-      status: this.form.value.email,
-      address: this.form.value.direccion,
-    };
-
-    /* Llama al backend para crear el cliente
-    this.paymentService.create(dto).subscribe({
-      next: (created) => {
-        
-    })*/
-    
+    }, 2000);
   }
 
-  // Getters de conveniencia para el template.
-  // Permiten escribir: nombreCtrl?.invalid en lugar de form.get('nombre')?.invalid
+  // Getters para el template
   get titularCtrl() {
     return this.form.get('titular');
   }
@@ -124,7 +172,7 @@ export class PagoComponent implements OnInit
     return this.form.get('cvv');
   }
 
-  get bank() {
+  get bankCtrl() {
     return this.form.get('bank');
   }
 }
