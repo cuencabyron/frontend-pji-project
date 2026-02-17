@@ -32,6 +32,13 @@ export const routes: Routes = [
             .then(m => m.PagoComponent),
       },
 
+      {
+        path: 'success',
+        loadComponent: () =>
+          import('./pages/contratar/success/success.component')
+            .then(m => m.SuccessComponent),
+      },
+
       // si entran a /contratar sin nada
       { path: '', redirectTo: 'customer', pathMatch: 'full' },
     ],

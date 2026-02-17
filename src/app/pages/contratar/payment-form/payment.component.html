@@ -79,9 +79,17 @@
     <button
       class="btn primary pay-btn"
       (click)="pay()"
-      [disabled]="isLoading">
-      <span *ngIf="!isLoading">Pagar</span>
+      [disabled]="isLoading || paymentSuccess">
+
+      <span *ngIf="!isLoading && !paymentSuccess">
+        Pagar
+      </span>
+
       <span *ngIf="isLoading" class="spinner"></span>
+
+      <span *ngIf="paymentSuccess" class="success-check">
+        ✔ Pago exitoso
+      </span>
     </button>
 
     <div class="actions">

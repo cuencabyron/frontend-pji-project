@@ -226,3 +226,35 @@ $muted: rgba(31, 41, 55, 0.65);
   width: 38px;
   height: auto;
 }
+
+.pay-btn {
+  width: 100%;
+  height: 48px;
+  font-size: 15px;
+  margin-top: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: all 0.3s ease;
+}
+
+.success-check {
+  animation: fadeInScale 0.3s ease forwards;
+}
+
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.pay-btn:disabled {
+  filter: brightness(0.95);
+}

@@ -19,6 +19,7 @@ export class PagoComponent implements OnInit {
   form!: FormGroup;
 
   isLoading = false;
+  paymentSuccess = false;
 
   // Solo para UI (detección visual de tarjeta)
   cardType: 'visa' | 'mastercard' | 'amex' | null = null;
@@ -148,10 +149,14 @@ export class PagoComponent implements OnInit {
 
     this.isLoading = true;
 
-    // Simulación tipo Stripe
     setTimeout(() => {
       this.isLoading = false;
-      alert('Pago procesado exitosamente con Stripe');
+      this.paymentSuccess = true;
+
+      // Redirige después de 1.5 segundos
+      setTimeout(() => {
+        this.router.navigate(['/contratar/success']);
+      }, 1200);
     }, 2000);
   }
 
