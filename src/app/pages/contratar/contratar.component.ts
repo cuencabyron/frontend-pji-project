@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { PjiFlowService } from '../../services/pji-flow.service';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-contratar',
@@ -29,7 +30,10 @@ export class ContratarComponent implements OnInit {
 
   currentStep = 1;
 
-  constructor(private flow: PjiFlowService) {}
+  constructor(
+    private flow: PjiFlowService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.flow.getStep().subscribe(step => {
@@ -40,5 +44,10 @@ export class ContratarComponent implements OnInit {
   prepareRoute(outlet: any) {
     return outlet?.activatedRouteData?.['animation'];
   }
+
+  isSuccessRoute(): boolean {
+    return this.router.url.includes('success');
+  }
+
 }
 

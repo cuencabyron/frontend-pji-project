@@ -1,6 +1,6 @@
 <div class="flow">
   <!-- STEPPER -->
-  <div class="stepper">
+  <div class="stepper" *ngIf="!isSuccessRoute()">
     <div
       class="step"
       *ngFor="let s of steps; let i = index"
