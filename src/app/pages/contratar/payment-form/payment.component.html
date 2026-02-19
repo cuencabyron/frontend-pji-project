@@ -52,10 +52,30 @@
         </div>
 
         <div class="field">
-          <label>Fecha de expiración <span> * </span></label>
-          <input type="text" inputmode="numeric" placeholder="MM/YY" formControlName="exp" (input)="formatExpiry($event)" maxlength="5"/>
-          <small class="error" *ngIf="form.get('exp')?.touched && form.get('exp')?.invalid">
-            Se requiere una fecha de vencimiento
+          <label>Fecha de expiración <span>*</span></label>
+
+          <input
+            type="text"
+            inputmode="numeric"
+            placeholder="MM/YY"
+            formControlName="exp"
+            (input)="formatExpiry($event)"
+            maxlength="5"
+          />
+
+          <small class="error" *ngIf="expCtrl?.touched && expCtrl?.errors">
+
+            <span *ngIf="expCtrl?.errors?.['required']">
+              La fecha es obligatoria
+            </span>
+
+            <span *ngIf="expCtrl?.errors?.['invalidMonth']">
+              Mes inválido
+            </span>
+
+            <span *ngIf="expCtrl?.errors?.['expired']">
+              La tarjeta está vencida
+            </span>
           </small>
         </div>
 

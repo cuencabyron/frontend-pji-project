@@ -3,6 +3,32 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PjiFlowService } from '../../../services/pji-flow.service';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, ValidationErrors } from '@angular/forms';
+
+function expiryValidator(control: AbstractControl): ValidationErrors | null 
+{
+  const value = control.value;
+
+  if (!value || value.length < 5) return { invalidFormat: true };
+
+  const [monthStr, yearStr] = value.split('/');
+  const month = parseInt(monthStr, 10);
+  const year = parseInt(yearStr, 10);
+
+  if (isNaN(month) || isNaN(year) || month < 1 || month > 12) {
+    return { invalidMonth: true };
+  }
+
+  const now = new Date();
+  const currentYear = now.getFullYear() % 100;
+  const currentMonth = now.getMonth() + 1;
+
+  if (year < currentYear || (year === currentYear && month < currentMonth)) {
+    return { expired: true };
+  }
+
+  return null;
+}
 
 @Component({
   selector: 'app-pago',
@@ -40,8 +66,8 @@ export class PagoComponent implements OnInit {
     this.form = this.fb.group({
       titular: ['', Validators.required],
       cardNumber: ['', Validators.required],
-      exp: ['', Validators.required],
-      cvv: ['', Validators.required,  Validators.pattern(/^\d{3}$/)],
+      exp: ['', [Validators.required, expiryValidator]],
+      cvv: ['', [Validators.required, Validators.pattern(/^\d{3}$/)]],
       bank: ['', Validators.required],
     });
   }
