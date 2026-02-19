@@ -68,7 +68,6 @@ export class PagoComponent implements OnInit {
       cardNumber: ['', Validators.required],
       exp: ['', [Validators.required, expiryValidator]],
       cvv: ['', [Validators.required, Validators.pattern(/^\d{3}$/)]],
-      bank: ['', Validators.required],
     });
   }
 
@@ -201,9 +200,5 @@ export class PagoComponent implements OnInit {
 
   get cvvCtrl() {
     return this.form.get('cvv');
-  }
-
-  get bankCtrl() {
-    return this.form.get('bank');
   }
 }

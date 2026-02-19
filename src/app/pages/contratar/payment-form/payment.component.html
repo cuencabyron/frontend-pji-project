@@ -86,14 +86,6 @@
             No debe de contener más de tres digitos.
           </small>
         </div>
-
-        <div class="field">
-          <label>Nombre en la tarjeta <span> * </span></label>
-          <input type="text" placeholder="Ingresa el nombre tal y como aparece esta en la tarjeta" formControlName="bank" />
-          <small class="error" *ngIf="form.get('bank')?.touched && form.get('bank')?.invalid">
-           El nombre en la tarjeta es obligatorio
-          </small>
-        </div>
       </form>
 
     <button
