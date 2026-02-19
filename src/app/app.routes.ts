@@ -18,18 +18,21 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/contratar/customer-form/customer.component')
             .then(m => m.RegistroBasicoComponent),
+          data: { animation: 'customer' }
       },
       {
         path: 'product',
         loadComponent: () =>
           import('./pages/contratar/product-form/product.component')
             .then(m => m.EstadoPlanComponent),
+          data: { animation: 'product' }
       },
       {
         path: 'payment',
         loadComponent: () =>
           import('./pages/contratar/payment-form/payment.component')
             .then(m => m.PagoComponent),
+          data: { animation: 'payment' }
       },
 
       {
@@ -37,6 +40,7 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/contratar/success/success.component')
             .then(m => m.SuccessComponent),
+          data: { animation: 'success' }
       },
 
       // si entran a /contratar sin nada

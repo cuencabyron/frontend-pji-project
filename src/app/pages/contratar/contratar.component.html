@@ -14,7 +14,9 @@
   </div>
 
   <!-- CARD -->
-  <div class="flow-card">
-    <router-outlet></router-outlet>
+  <div class="flow-card"
+     [@fadeAnimation]="prepareRoute(outlet)">
+    <router-outlet #outlet="outlet"></router-outlet>
   </div>
+
 </div>
