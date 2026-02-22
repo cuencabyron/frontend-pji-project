@@ -76,7 +76,8 @@ export class RegistroBasicoComponent implements OnInit
   }
 
   // Avanza al siguiente paso del flujo
-  siguiente(): void {
+  siguiente(): void 
+  {
     // Si el formulario es inválido o no hay productId, no hace nada
     if (this.form.invalid || !this.productId) return;
 
