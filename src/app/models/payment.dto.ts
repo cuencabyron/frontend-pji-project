@@ -1,8 +1,6 @@
 export interface Payment
 {
-  amount: string;
+  customer_id: string;
+  product_id: string;
   method: string;
-  status: string;
-  currency: string;
-  external_ref: string;
 };

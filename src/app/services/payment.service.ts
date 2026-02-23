@@ -12,7 +12,7 @@ export class PaymentService
 
   constructor(private http: HttpClient) {}
 
-  createPayment(dto: Partial<Payment>): Observable<Payment> {
+  createPayment(dto: Payment): Observable<Payment> {
     return this.http.post<Payment>(this.baseUrl, dto);
   }
 }

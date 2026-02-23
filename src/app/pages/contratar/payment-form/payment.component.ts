@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PjiFlowService } from '../../../services/pji-flow.service';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AbstractControl, ValidationErrors } from '@angular/forms';
+import { PaymentService } from '../../../services/payment.service';
 
 function expiryValidator(control: AbstractControl): ValidationErrors | null 
 {
@@ -57,6 +58,7 @@ export class PagoComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private readonly flow: PjiFlowService,
+    private paymentService: PaymentService
   ) {}
 
   ngOnInit(): void {
@@ -166,23 +168,44 @@ export class PagoComponent implements OnInit {
     });
   }
 
-  pay() {
+  pay() 
+  {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
 
+    const customer_id = this.flow.getCustomerId();
+    const product_id = this.route.snapshot.queryParamMap.get('productId');
+
+    if (!customer_id || !product_id) {
+      alert('Error de sesión. Intenta nuevamente.');
+      return;
+    }
+
     this.isLoading = true;
 
-    setTimeout(() => {
-      this.isLoading = false;
-      this.paymentSuccess = true;
+    this.paymentService.createPayment({
+      customer_id,
+      product_id,
+      method: 'oxxo'
+    }).subscribe({
+      next: (res) => {
+        console.log('Pago creado:', res);
 
-      // Redirige después de 1.5 segundos
-      setTimeout(() => {
-        this.router.navigate(['/contratar/success']);
-      }, 1200);
-    }, 2000);
+        this.isLoading = false;
+        this.paymentSuccess = true;
+
+        setTimeout(() => {
+          this.router.navigate(['/contratar/success']);
+        }, 1200);
+      },
+      error: (err) => {
+        console.error('Error creando pago', err);
+        this.isLoading = false;
+        alert('Error al procesar el pago');
+      }
+    });
   }
 
   // Getters para el template

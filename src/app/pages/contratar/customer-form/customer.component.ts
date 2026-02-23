@@ -101,6 +101,8 @@ export class RegistroBasicoComponent implements OnInit
           address: created.address,
         });
 
+        this.flow.setCustomerId(created.customer_id);
+
         // Navega al siguiente paso del proceso,
         // enviando productId y customerId por query params
         this.router.navigate(['/contratar/product'], {

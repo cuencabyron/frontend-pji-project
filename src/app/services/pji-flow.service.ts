@@ -22,6 +22,7 @@ export class PjiFlowService {
   private readonly key = 'pji_flow';
 
   private step$ = new BehaviorSubject<number>(1);
+  private customerId: string | null = null;
 
   setStep(step: number): void{
     this.step$.next(step);
@@ -31,13 +32,23 @@ export class PjiFlowService {
     return this.step$.asObservable();
   }
 
+  setCustomerId(id: string) {
+    this.state.customerId = id;
+    this.save();
+  }
+
+  getCustomerId(): string | null {
+    return this.state.customerId ?? null;
+  }
+
   // Estado interno del “flujo” (plan seleccionado, estado, datos del cliente).
   // Se inicializa con load() para recuperar información persistida (si existe).
   private state: {
     productId?: string;        // ID del plan/producto seleccionado
     productName?: string;      // Nombre del plan/producto seleccionado (para UI)
     stateCode?: string;        // Código de estado (p. ej. "MOR", "CDMX", etc.)
-    customer?: CustomerDraft;  // Borrador de datos del cliente
+    customer?: CustomerDraft; 
+    customerId?: string;       // Borrador de datos del cliente
   } = this.load();             // Carga inicial desde localStorage
 
   // Guarda el plan seleccionado dentro del state y persiste cambios.
