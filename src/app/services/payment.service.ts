@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment.dev';
 import { Payment } from '../models/payment.dto';
+import { CreatePaymentDto } from '../models/create-payment.dto';
 
 @Injectable({ providedIn: 'root' })
 
@@ -12,7 +13,11 @@ export class PaymentService
 
   constructor(private http: HttpClient) {}
 
-  createPayment(dto: Payment): Observable<Payment> {
+  createPayment(dto: CreatePaymentDto): Observable<Payment> {
     return this.http.post<Payment>(this.baseUrl, dto);
+  }
+
+  updatePayment(id: string, dto: { status: string }) {
+    return this.http.put(`${this.baseUrl}/${id}`, dto);
   }
 }

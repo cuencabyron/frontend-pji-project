@@ -191,14 +191,18 @@ export class PagoComponent implements OnInit {
       method: 'oxxo'
     }).subscribe({
       next: (res) => {
-        console.log('Pago creado:', res);
+        this.paymentService.updatePayment(res.payment_id, {
+          status: 'paid'
+        }).subscribe(() => {
+          console.log('Pago creado:', res);
 
-        this.isLoading = false;
-        this.paymentSuccess = true;
+          this.isLoading = false;
+          this.paymentSuccess = true;
 
-        setTimeout(() => {
-          this.router.navigate(['/contratar/success']);
-        }, 1200);
+          setTimeout(() => {
+            this.router.navigate(['/contratar/success']);
+          }, 1200);
+        });
       },
       error: (err) => {
         console.error('Error creando pago', err);
