@@ -16,8 +16,4 @@ export class SuccessComponent {
   goHome() {
     this.router.navigate(['/']);
   }
-
-  goDashboard() {
-    this.router.navigate(['/dashboard']);
-  }
 }
