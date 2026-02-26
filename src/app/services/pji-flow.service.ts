@@ -1,8 +1,15 @@
 // Importa el decorador Injectable de Angular para declarar este servicio como inyectable.
 import { Injectable } from '@angular/core';
 
-
 import { BehaviorSubject, Observable } from 'rxjs';
+
+export type PaymentSummary = {
+  planName: string;
+  amount: string;
+  method: string;
+  paidAt: string | Date | null;
+  externalRef: string;
+};
 
 // Define el “shape” (estructura) de los datos del cliente que se guardarán temporalmente.
 // Esto sirve como borrador (draft) durante un flujo tipo wizard/checkout.
@@ -49,6 +56,7 @@ export class PjiFlowService {
     stateCode?: string;        // Código de estado (p. ej. "MOR", "CDMX", etc.)
     customer?: CustomerDraft; 
     customerId?: string;       // Borrador de datos del cliente
+    paymentSummary?: PaymentSummary;
   } = this.load();             // Carga inicial desde localStorage
 
   // Guarda el plan seleccionado dentro del state y persiste cambios.
@@ -69,6 +77,15 @@ export class PjiFlowService {
   setCustomer(customer: CustomerDraft) {
     this.state.customer = customer; // Guarda el borrador del cliente
     this.save();                    // Persiste en localStorage
+  }
+
+  setPaymentSummary(summary: PaymentSummary) {
+    this.state.paymentSummary = summary;
+    this.save();
+  }
+
+  getPaymentSummary(): PaymentSummary | undefined {
+    return this.state.paymentSummary;
   }
 
   // Getter que expone un “snapshot” del estado actual.

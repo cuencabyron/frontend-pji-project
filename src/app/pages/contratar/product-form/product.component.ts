@@ -132,6 +132,11 @@ export class EstadoPlanComponent implements OnInit {
   {
     if (!this.selectedProductId || !this.selectedProductName) return;
 
+    this.flow.setPlan({
+      id: this.selectedProductId,
+      name: this.selectedProductName,
+    });
+
     this.router.navigate(['/contratar/payment'], {
       queryParams: {
         productId: this.selectedProductId,

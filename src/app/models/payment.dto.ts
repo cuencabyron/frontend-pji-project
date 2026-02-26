@@ -11,5 +11,5 @@ export interface Payment
   status: string;
   external_ref: string;
 
-  paid_at?: string | null;
+  paid_at: string | null;
 }

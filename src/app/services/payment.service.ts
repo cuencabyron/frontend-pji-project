@@ -17,7 +17,7 @@ export class PaymentService
     return this.http.post<Payment>(this.baseUrl, dto);
   }
 
-  updatePayment(id: string, dto: { status: string }) {
-    return this.http.put(`${this.baseUrl}/${id}`, dto);
+  updatePayment(id: string, dto: { status: string }): Observable<Payment> {
+    return this.http.put<Payment>(`${this.baseUrl}/${id}`, dto);
   }
 }

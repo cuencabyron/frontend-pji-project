@@ -10,6 +10,33 @@
       Ya puedes disfrutar de los beneficios de tu plan.
     </p>
 
+    <div class="payment-summary">
+      <div class="row">
+        <span>Plan:</span>
+        <strong>{{ paymentSummary.planName }}</strong>
+      </div>
+
+      <div class="row">
+        <span>Monto:</span>
+        <strong>${{ paymentSummary.amount }} MXN</strong>
+      </div>
+
+      <div class="row">
+        <span>Método:</span>
+        <strong>{{ paymentSummary.method | uppercase }}</strong>
+      </div>
+
+      <div class="row">
+        <span>Fecha:</span>
+        <strong>{{ paymentSummary.paidAt | date:'medium' }}</strong>
+      </div>
+
+      <div class="row">
+        <span>Folio:</span>
+        <strong>{{ paymentSummary.externalRef }}</strong>
+      </div>
+    </div>
+
     <div class="actions">
       <button class="btn primary" (click)="goHome()">
         Volver al inicio

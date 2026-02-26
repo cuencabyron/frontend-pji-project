@@ -5,6 +5,7 @@ import { PjiFlowService } from '../../../services/pji-flow.service';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AbstractControl, ValidationErrors } from '@angular/forms';
 import { PaymentService } from '../../../services/payment.service';
+import { Payment } from '../../../models/payment.dto';
 
 function expiryValidator(control: AbstractControl): ValidationErrors | null 
 {
@@ -193,8 +194,16 @@ export class PagoComponent implements OnInit {
       next: (res) => {
         this.paymentService.updatePayment(res.payment_id, {
           status: 'paid'
-        }).subscribe(() => {
+        }).subscribe((updated: Payment) => {
           console.log('Pago creado:', res);
+
+          this.flow.setPaymentSummary({
+            planName: this.flow.snapshot.productName ?? '',
+            amount: updated.amount,
+            method: updated.method,
+            paidAt: updated.paid_at ?? null,
+            externalRef: updated.external_ref,
+          });
 
           this.isLoading = false;
           this.paymentSuccess = true;
