@@ -158,7 +158,7 @@
 
   .nav-links {
     position: absolute;
-    top: 100%;
+    top: 80%;
     right: 0;
     background: white;
     flex-direction: column;
@@ -166,6 +166,7 @@
     padding: 15px;
     border-radius: 10px;
     display: none;
+    z-index: 1001;
   }
 
   .nav-links.active {
