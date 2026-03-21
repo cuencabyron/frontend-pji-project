@@ -19,11 +19,17 @@ export class HeaderComponent {
   // Flag que controla el estado "compact" del header (se usa en el HTML con [class.compact]="scrolled")
   scrolled = false;
 
+  menuOpen = false;
+
   // Escucha el evento 'scroll' de la ventana. Cada vez que el usuario hace scroll, se ejecuta onWindowScroll()
   @HostListener('window:scroll', [])
   onWindowScroll() {
     // Si el desplazamiento vertical supera 80px, marcamos scrolled=true (activa la clase .compact)
     // Ajusta 80 a tu gusto para que el cambio ocurra antes o después.
     this.scrolled = window.scrollY > 80;
+  }
+
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
   }
 }
