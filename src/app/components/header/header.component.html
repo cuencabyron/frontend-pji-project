@@ -20,9 +20,9 @@
     <!-- Navegación principal -->
     <nav class="nav-links" [class.active]="menuOpen">
       <!-- Enlaces internos que apuntan a secciones por ID en la misma página -->
-      <a href="#proceso">¿CÓMO FUNCIONA?</a>
-      <a href="#planes">PÓLIZAS</a>
-      <a href="#faq">FAQ</a>
+      <a href="#proceso" (click)="toggleMenu()">¿CÓMO FUNCIONA?</a>
+      <a href="#planes" (click)="toggleMenu()">PÓLIZAS</a>
+      <a href="#faq" (click)="toggleMenu()">FAQ</a>
     </nav>
   </div>
 </header>
