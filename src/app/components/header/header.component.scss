@@ -135,12 +135,6 @@
   background: #7aa50a;        /* subrayado con contraste adecuado en claro */
 }
 
-.nav-links {
-  margin-left: auto;
-  display: flex;
-  gap: 26px;
-}
-
 .menu-toggle {
   display: none;
   position: absolute;
@@ -241,17 +235,25 @@
 
 /* LINKS */
 .side-menu a {
+  position: relative;
   text-decoration: none;
   color: #1E2A32;
   font-size: 18px;
   font-weight: 500;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.side-menu a:hover,
+.side-menu a:active {
+  transform: translateY(5px);
+  color: #7aa50a;
 }
 
 .side-menu a::after {
   content: "";
   position: absolute;
   left: 0;
-  bottom: -4px;
+  bottom: -6px;
   width: 100%;
   height: 2px;
   background: #7aa50a;
@@ -259,7 +261,8 @@
   transition: transform .3s ease;
 }
 
-.side-menu a:hover::after {
+.side-menu a:hover::after,
+.side-menu a:active::after {
   transform: scaleX(1);
 }
 
