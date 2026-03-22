@@ -17,8 +17,10 @@
       <i class="bi bi-list"></i>
     </button>
 
+    <div clas="overlay" *ngIf="menuOpen" (click)="toggleMenu()"></div>
+
     <!-- Navegación principal -->
-    <nav class="nav-links" [class.active]="menuOpen">
+    <nav class="side-menu" [class.open]="menuOpen">
       <!-- Enlaces internos que apuntan a secciones por ID en la misma página -->
       <a href="#proceso" (click)="toggleMenu()">¿CÓMO FUNCIONA?</a>
       <a href="#planes" (click)="toggleMenu()">PÓLIZAS</a>
