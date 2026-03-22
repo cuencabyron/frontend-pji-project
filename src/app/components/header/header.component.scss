@@ -21,6 +21,7 @@
   display: flex;               /* distribuye logo y nav en fila */
   align-items: center;         /* centra verticalmente */
   gap: 24px;                   /* separación entre logo y nav */
+  position: relative;
 
   /* Estado inicial: sin “píldora” (transparente) */
   background: transparent;   
@@ -134,8 +135,16 @@
   background: #7aa50a;        /* subrayado con contraste adecuado en claro */
 }
 
+.nav-links{
+  display: flex;
+}
+
 .menu-toggle {
   display: none;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
   font-size: 28px;
   background: none;
   border: none;
@@ -143,6 +152,11 @@
   color: white;
   align-items: center;
   justify-content: center;
+  z-index: 1100;
+}
+
+.header.compact .menu-toggle{
+  color: #1E2A32;
 }
 
 .menu-toggle i {
@@ -203,11 +217,13 @@
   background: white;
   display: flex;
   flex-direction: column;
-  padding: 80px 20px;
+  padding: 100px 20px;
   gap: 20px;
   z-index: 1000;
   transition: right 0.3s ease;
   box-shadow: -4px 0 20px rgba(0,0,0,0.2);
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
 }
 
 /* CUANDO SE ABRE */
@@ -221,4 +237,14 @@
   color: #1E2A32;
   font-size: 18px;
   font-weight: 500;
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
 }
