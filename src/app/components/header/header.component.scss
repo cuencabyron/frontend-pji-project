@@ -135,8 +135,10 @@
   background: #7aa50a;        /* subrayado con contraste adecuado en claro */
 }
 
-.nav-links{
+.nav-links {
+  margin-left: auto;
   display: flex;
+  gap: 26px;
 }
 
 .menu-toggle {
