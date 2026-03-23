@@ -79,3 +79,39 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+
+  .hero {
+    min-height: 100vh;
+    padding: 120px 20px 60px;
+  }
+
+  .container {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .hero-content {
+    max-width: 100%;
+  }
+
+  .hero-content h1 {
+    font-size: 32px;
+    line-height: 1.25;
+  }
+
+  .hero-content p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-content .btn-primary {
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+    justify-content: center;
+  }
+}
