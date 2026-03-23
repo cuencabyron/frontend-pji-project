@@ -59,16 +59,6 @@ $border: rgba(255, 255, 255, 0.2); // Color semitransparente para líneas diviso
     }
   }
 
-  &__answer {
-    margin: 0;                     // Sin margen extra alrededor
-    padding: 0 0 1.2rem;           // Espacio inferior para separar de la siguiente pregunta
-    font-size: 1.07rem;            // Tamaño de fuente de la respuesta
-    line-height: 1.6;              // Altura de línea cómoda para lectura
-    max-width: 78ch;               // Limita el ancho para que las líneas no sean muy largas
-    text-align: left;              // Respuesta alineada a la izquierda
-    cursor: pointer;               // Cursor de mano (opcional, por consistencia visual)
-  }
-
   &__icon {
     font-size: 1.5rem;             // Tamaño del icono (+ / chevron)
     color: $accent;                // Icono en color de acento verde
@@ -90,6 +80,14 @@ $border: rgba(255, 255, 255, 0.2); // Color semitransparente para líneas diviso
   }
 
   &__answer {
+    margin: 0;                     // Sin margen extra alrededor
+    padding: 0 0 1.2rem;           // Espacio inferior para separar de la siguiente pregunta
+    font-size: 1.07rem;            // Tamaño de fuente de la respuesta
+    line-height: 1.6;              // Altura de línea cómoda para lectura
+    max-width: 78ch;               // Limita el ancho para que las líneas no sean muy largas
+    text-align: left;              // Respuesta alineada a la izquierda
+    cursor: pointer;               // Cursor de mano (opcional, por consistencia visual)
+
     max-height: 0;
     overflow: hidden;
     opacity: 0;
@@ -104,5 +102,9 @@ $border: rgba(255, 255, 255, 0.2); // Color semitransparente para líneas diviso
     max-height: 200px;
     opacity: 1;
     transform: translateY(0);
+  }
+
+  &__item--open {
+    background: rgba(255, 255, 255, 0.08);
   }
 }
