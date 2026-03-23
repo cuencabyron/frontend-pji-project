@@ -88,4 +88,21 @@ $border: rgba(255, 255, 255, 0.2); // Color semitransparente para líneas diviso
   &__item:active {
     transform: scale(0.98);
   }
+
+  &__answer {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-5px);
+    transition:
+      max-height 0.35s ease,
+      opacity 0.25s ease,
+      transform 0.25s ease;
+  }
+
+  &__answer.open {
+    max-height: 200px;
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

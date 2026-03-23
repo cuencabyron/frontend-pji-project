@@ -38,7 +38,7 @@
 
       <!-- Contenedor de la respuesta.
            Solo se muestra cuando openIndex === i gracias a *ngIf -->
-      <div class="faq__answer" *ngIf="openIndex === i">
+      <div class="faq__answer" [class.open]="openIndex === i">
         <!-- Texto de la respuesta, tomado del objeto faq.respuesta -->
         {{ faq.respuesta }}
       </div>
