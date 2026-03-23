@@ -85,6 +85,19 @@
   .hero {
     min-height: 100vh;
     padding: 120px 20px 60px;
+    position: relative;
+  }
+
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
   }
 
   .container {
