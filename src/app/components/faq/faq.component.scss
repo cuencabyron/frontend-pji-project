@@ -28,19 +28,14 @@ $border: rgba(255, 255, 255, 0.2); // Color semitransparente para líneas diviso
   }
 
   &__item {
-    border: none;                 // Sin borde por defecto en cada item
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 0 16px;
+    margin-bottom: 12px;
+    transition: all 0,25s ease;
 
-    // raya solo entre elementos (todos menos el último)
-    &:not(:last-child) {
-      border-bottom: 1px solid $border; // Línea divisoria bajo cada item excepto el último
-    }
-
-    transition: background-color 0.18s ease; // Transición suave del fondo al hacer hover
-
-    // sombreado cuando pasas el mouse
     &:hover {
-      background-color: rgba(255, 255, 255, 0.06); 
-                                      // Leve sombreado claro al pasar el cursor
+      background-color: rgba(255, 255, 255, 0.08); 
     }
   }
 
@@ -80,5 +75,17 @@ $border: rgba(255, 255, 255, 0.2); // Color semitransparente para líneas diviso
     display: inline-flex;          // Permite centrar el icono dentro de su caja
     align-items: center;           // Centra verticalmente el icono
     justify-content: center;       // Centra horizontalmente el icono
+  }
+
+  &__icon {
+    transition: transform 0.3s ease;
+  }
+
+  &__item--open &__icon {
+    transform: rotate(180deg);
+  }
+
+  &__item:active {
+    transform: scale(0.98);
   }
 }
