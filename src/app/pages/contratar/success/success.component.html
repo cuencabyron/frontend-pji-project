@@ -13,27 +13,27 @@
     <div class="payment-summary">
       <div class="row">
         <span>Plan:</span>
-        <strong>{{ paymentSummary.planName }}</strong>
+        <strong>{{ paymentSummary?.planName }}</strong>
       </div>
 
       <div class="row">
         <span>Monto:</span>
-        <strong>${{ paymentSummary.amount }} MXN</strong>
+        <strong>${{ paymentSummary?.amount }} MXN</strong>
       </div>
 
       <div class="row">
         <span>Método:</span>
-        <strong>{{ paymentSummary.method | uppercase }}</strong>
+        <strong>{{ paymentSummary?.method | uppercase }}</strong>
       </div>
 
       <div class="row">
         <span>Fecha:</span>
-        <strong>{{ paymentSummary.paidAt | date:'medium' }}</strong>
+        <strong>{{ paymentSummary?.paidAt | date:'medium' }}</strong>
       </div>
 
       <div class="row">
         <span>Folio:</span>
-        <strong>{{ paymentSummary.externalRef }}</strong>
+        <strong>{{ paymentSummary?.externalRef }}</strong>
       </div>
     </div>
 
